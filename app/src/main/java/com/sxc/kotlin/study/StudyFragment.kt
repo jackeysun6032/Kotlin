@@ -33,9 +33,7 @@ class StudyFragment : Fragment(), AdapterView.OnItemClickListener {
 
         studyContent = context.resources.getStringArray(R.array.study_content)
         var datas = ArrayList<String>()
-        for (content in studyContent) {
-            datas.add(content)
-        }
+        studyContent.forEach { content -> datas.add(content) }
         studyAdapter?.datas = datas
 
         listView.onItemClickListener = this
