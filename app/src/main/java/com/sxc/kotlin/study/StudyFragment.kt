@@ -19,6 +19,8 @@ import java.util.ArrayList
 class StudyFragment : Fragment(), AdapterView.OnItemClickListener {
 
     var studyAdapter: StudyAdapter? = null
+    var studyContent = emptyArray<String>()
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_study, container, false)
     }
@@ -29,7 +31,7 @@ class StudyFragment : Fragment(), AdapterView.OnItemClickListener {
         studyAdapter = StudyAdapter(context)
         listView.adapter = studyAdapter
 
-        val studyContent = context.resources.getStringArray(R.array.study_content)
+        studyContent = context.resources.getStringArray(R.array.study_content)
         var datas = ArrayList<String>()
         for (content in studyContent) {
             datas.add(content)
@@ -41,6 +43,6 @@ class StudyFragment : Fragment(), AdapterView.OnItemClickListener {
 
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        startActivity(Intent(activity, KotlinActivity::class.java))
+        KotlinActivity.startActivity(activity,studyContent[position])
     }
 }
