@@ -18,7 +18,7 @@ import com.sxc.kotlin.login.LoginActivity
 class SplashActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
 
     var splashAdapter: SplashAdapter? = null
-    val imgs = arrayListOf<Int>(R.mipmap.first, R.mipmap.second, R.mipmap.third)
+    val imgs = arrayListOf<Int>(R.mipmap.img2, R.mipmap.img3, R.mipmap.img4, R.mipmap.img6)
     var views: ArrayList<View> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {

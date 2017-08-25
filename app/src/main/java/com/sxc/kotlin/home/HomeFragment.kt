@@ -2,6 +2,7 @@ package com.sxc.kotlin.home
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentTransaction
 import android.support.v4.view.ViewPager
 import android.util.Log
 import android.view.LayoutInflater
@@ -25,8 +26,8 @@ class HomeFragment : Fragment(), View.OnClickListener, ViewPager.OnPageChangeLis
     val TAG: String = HomeFragment::class.java.simpleName
     var bannerAdapter: BannerAdapter? = null
     var imgViews: ArrayList<View> = arrayListOf()
-    val imgs: ArrayList<Int> = arrayListOf(R.mipmap.first, R.mipmap.second, R.mipmap.third)
-    val titles = arrayListOf("第一个", "第二个", "第三个")
+    val imgs: ArrayList<Int> = arrayListOf(R.mipmap.img1, R.mipmap.img5, R.mipmap.img_xms, R.mipmap.img_ys, R.mipmap.img_vn)
+    val titles = arrayListOf("诡术妖姬", "美女", "戏命师", "疾风剑豪", "暗夜猎手")
 
     var currentPosition = Int.MAX_VALUE / 2
 
@@ -52,6 +53,16 @@ class HomeFragment : Fragment(), View.OnClickListener, ViewPager.OnPageChangeLis
 
         initPoints(currentPosition % imgs.size)
         initView()
+        initMenu()
+    }
+
+    /**
+     * 广告栏下的菜单
+     */
+    private fun initMenu() {
+        val ft: FragmentTransaction = activity.supportFragmentManager.beginTransaction()
+        ft.replace(R.id.container_home_menu, MenuFragment())
+        ft.commit()
     }
 
     fun initView() {
