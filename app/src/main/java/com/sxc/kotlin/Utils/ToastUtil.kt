@@ -8,7 +8,7 @@ import com.sxc.kotlin.R
  * Created by sunxunchao on 2017/8/22.
  */
 object ToastUtil {
-    var toast: Toast? = null
+    private var toast: Toast? = null
 
     fun show(context: Context, msg: String = context.getString(R.string.unknown_error), length: Int = Toast.LENGTH_LONG) {
         if (toast == null) {

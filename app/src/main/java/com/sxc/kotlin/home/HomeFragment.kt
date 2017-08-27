@@ -67,8 +67,6 @@ class HomeFragment : Fragment(), View.OnClickListener, ViewPager.OnPageChangeLis
 
     fun initView() {
         viewPager.currentItem = currentPosition
-        mHandler = BannerHandler(viewPager)
-
         viewPager.setOnTouchListener(this)
     }
 
@@ -77,12 +75,13 @@ class HomeFragment : Fragment(), View.OnClickListener, ViewPager.OnPageChangeLis
             ACTION_DOWN -> mHandler?.sendEmptyMessage(BannerHandler.STOP)
             ACTION_UP -> mHandler?.sendEmptyMessageDelayed(BannerHandler.START, BannerHandler.DELAY)
         }
-        return true
+        return false
     }
 
     override fun onResume() {
         super.onResume()
         Log.d(TAG, "onResume")
+        mHandler = BannerHandler(viewPager)
         mHandler?.sendEmptyMessageDelayed(BannerHandler.START, BannerHandler.DELAY)
     }
 
@@ -138,17 +137,26 @@ class HomeFragment : Fragment(), View.OnClickListener, ViewPager.OnPageChangeLis
     override fun onPause() {
         super.onPause()
         mHandler?.hasMessages(BannerHandler.STOP)
+        mHandler?.removeMessages(BannerHandler.STOP)
+        mHandler?.removeMessages(BannerHandler.START)
+        mHandler = null
     }
 
     override fun onStop() {
         super.onStop()
+        Log.d(TAG, "onStop")
         mHandler?.hasMessages(BannerHandler.STOP)
+        mHandler?.removeMessages(BannerHandler.STOP)
+        mHandler?.removeMessages(BannerHandler.START)
+        mHandler = null
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        Log.d(TAG, "onDestroy")
         mHandler?.hasMessages(BannerHandler.STOP)
         mHandler?.removeMessages(BannerHandler.STOP)
+        mHandler?.removeMessages(BannerHandler.START)
         mHandler = null
     }
 
