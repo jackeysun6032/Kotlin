@@ -91,7 +91,7 @@ class MenuAdapter(context: Context, datas: List<String>) : RecyclerView.Adapter<
         var mTextView: TextView? = null
 
         init {
-            mTextView = itemView.findViewById(R.id.textView) as TextView
+            mTextView = itemView.findViewById<TextView>(R.id.textView)
         }
     }
 
@@ -99,7 +99,7 @@ class MenuAdapter(context: Context, datas: List<String>) : RecyclerView.Adapter<
         var mTextView2: TextView? = null
 
         init {
-            mTextView2 = itemView.findViewById(R.id.textView2) as TextView
+            mTextView2 = itemView.findViewById<TextView>(R.id.textView2)
         }
     }
 
@@ -107,7 +107,7 @@ class MenuAdapter(context: Context, datas: List<String>) : RecyclerView.Adapter<
         var mTextView3: TextView? = null
 
         init {
-            mTextView3 = itemView.findViewById(R.id.textView3) as TextView
+            mTextView3 = itemView.findViewById<TextView>(R.id.textView3)
         }
     }
 
