@@ -1,5 +1,6 @@
 package com.sxc.kotlin
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
@@ -26,12 +27,12 @@ class MainActivity : AppCompatActivity(), RadioGroup.OnCheckedChangeListener {
         fragments.add(MineFragment())
 
         menu.setOnCheckedChangeListener(this)
-
         normalFragment()
         changeTitle(0)
     }
 
-    fun normalFragment() {
+    @SuppressLint("CommitTransaction")
+    private fun normalFragment() {
         ft = supportFragmentManager.beginTransaction()
         ft?.replace(R.id.container,fragments[0])
         ft?.commit()

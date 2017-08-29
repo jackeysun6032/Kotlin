@@ -18,8 +18,8 @@ class MenuAdapter(context: Context, datas: List<String>) : RecyclerView.Adapter<
     val TAG = MenuAdapter::class.java.simpleName
     var context: Context? = null
     var datas: List<String>? = null
-    var onItemClickListener: OnRecyclerViewItemClickListener? = null
 
+    private lateinit var onItemClickListener: OnRecyclerViewItemClickListener
 
     interface OnRecyclerViewItemClickListener {
         fun onItemClick(view: View?, position: Int)

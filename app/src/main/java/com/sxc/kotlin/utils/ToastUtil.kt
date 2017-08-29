@@ -1,4 +1,4 @@
-package com.sxc.kotlin.Utils
+package com.sxc.kotlin.utils
 
 import android.content.Context
 import android.widget.Toast

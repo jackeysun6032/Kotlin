@@ -3,7 +3,7 @@ package com.sxc.kotlin.home
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
 import com.sxc.kotlin.R
-import com.sxc.kotlin.Utils.ToastUtil
+import com.sxc.kotlin.utils.ToastUtil
 import com.sxc.kotlin.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_menu.*
 
