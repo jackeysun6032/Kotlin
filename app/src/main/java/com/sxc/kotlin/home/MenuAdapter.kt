@@ -1,23 +1,31 @@
 package com.sxc.kotlin.home
 
 import android.content.Context
+import android.content.res.Resources
+import android.support.annotation.IntegerRes
 import android.support.v7.widget.RecyclerView
+import android.util.ArrayMap
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.TextView
 import com.sxc.kotlin.R
 import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 /**
- * Created by jackey on 2017/8/26.
- */
+* Created by jackey on 2017/8/26.
+*/
 class MenuAdapter(context: Context, datas: List<String>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), View.OnClickListener/*, View.OnClickListener*/ {
 
     val TAG = MenuAdapter::class.java.simpleName
     var context: Context? = null
     var datas: List<String>? = null
+
+    val sizeList = mapOf<Int, Array<Int>>().toMutableMap()
 
     private lateinit var onItemClickListener: OnRecyclerViewItemClickListener
 
@@ -34,6 +42,7 @@ class MenuAdapter(context: Context, datas: List<String>) : RecyclerView.Adapter<
     init {
         this.context = context
         this.datas = datas
+
     }
 
     fun setOnRecyclerViewItemClickListener(onRecyclerViewItemClickListener: OnRecyclerViewItemClickListener) {
@@ -44,6 +53,14 @@ class MenuAdapter(context: Context, datas: List<String>) : RecyclerView.Adapter<
         if (viewHolder is FirstViewHolder) viewHolder.mTextView?.text = datas?.get(position)
         if (viewHolder is SecondViewHolder) viewHolder.mTextView2?.text = datas?.get(position)
         if (viewHolder is ThirdViewHolder) viewHolder.mTextView3?.text = datas?.get(position)
+
+        if (sizeList[position] == null) {
+            sizeList.put(position, arrayOf(-1, Resources.getSystem().displayMetrics.widthPixels / 3 + Random().nextInt(300)))
+        }
+        val info = sizeList[position]
+        val layoutParams = FrameLayout.LayoutParams(info!![0], info[1])
+        viewHolder?.itemView?.layoutParams = layoutParams
+        viewHolder?.itemView?.requestLayout()
 
         viewHolder?.itemView?.tag = position
     }
@@ -81,10 +98,10 @@ class MenuAdapter(context: Context, datas: List<String>) : RecyclerView.Adapter<
     }
 
     override fun getItemViewType(position: Int): Int {
-
-        val random: Random = Random()
-        var type = random.nextInt(3)
-        return type
+//
+//        val random: Random = Random()
+//        var type = random.nextInt(3)
+        return position % 3
     }
 
     class FirstViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

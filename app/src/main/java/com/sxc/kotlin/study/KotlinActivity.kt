@@ -8,23 +8,26 @@ import android.view.MenuItem
 
 import com.sxc.kotlin.R
 import kotlinx.android.synthetic.main.activity_kotlin.*
+import kotlinx.android.synthetic.main.toolbar.*
 
 class KotlinActivity : AppCompatActivity() {
 
 
-    companion object{
-       val TITLE_TAG:String = "TITLE_TAG"
+    companion object {
+        val TITLE_TAG: String = "TITLE_TAG"
 
         fun startActivity(activity: Activity, title: String) {
-            var intent: Intent = Intent(activity,KotlinActivity::class.java)
-            intent.putExtra(TITLE_TAG,title)
+            var intent: Intent = Intent(activity, KotlinActivity::class.java)
+            intent.putExtra(TITLE_TAG, title)
             activity.startActivity(intent)
         }
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_kotlin)
         var titleContent = intent.getStringExtra(TITLE_TAG)
+        setSupportActionBar(toolbar)
         supportActionBar?.title = titleContent
         supportActionBar?.setHomeButtonEnabled(true)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -39,7 +42,7 @@ class KotlinActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-     object start{
+    object start {
 
-     }
+    }
 }

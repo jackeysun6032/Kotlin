@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import com.bumptech.glide.Glide
 import com.sxc.kotlin.R
 import com.sxc.kotlin.home.banner.BannerHandler
 import com.sxc.kotlin.splash.BannerAdapter
@@ -42,7 +43,8 @@ class HomeFragment : Fragment(), View.OnClickListener, ViewPager.OnPageChangeLis
 
         for (img in imgs) {
             var imgView = ImageView(context)
-            imgView.setBackgroundResource(img)
+            imgView.scaleType = ImageView.ScaleType.CENTER_CROP
+            Glide.with(this).load(img).into(imgView)
             imgViews.add(imgView)
         }
 

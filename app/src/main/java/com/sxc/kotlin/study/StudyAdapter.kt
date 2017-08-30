@@ -30,7 +30,7 @@ class StudyAdapter(context: Context) : BaseAdapter() {
         if (convertView == null) {
             viewHolder = ViewHolder()
             view = View.inflate(context, R.layout.simple_list_item, null)
-            viewHolder.tv = view?.findViewById(R.id.text) as TextView
+            viewHolder.tv = view?.findViewById(R.id.text)
             view.tag = viewHolder
         } else {
             viewHolder = view?.tag as ViewHolder

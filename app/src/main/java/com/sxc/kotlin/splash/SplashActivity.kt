@@ -12,6 +12,7 @@ import com.sxc.kotlin.R
 import kotlinx.android.synthetic.main.activity_splash.*
 import android.view.ViewGroup
 import android.widget.RelativeLayout
+import com.bumptech.glide.Glide
 import com.sxc.kotlin.login.LoginActivity
 
 
@@ -29,7 +30,8 @@ class SplashActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
 
         for (i in imgs) {
             var imageView = ImageView(this)
-            imageView.setBackgroundResource(i)
+            imageView.scaleType = ImageView.ScaleType.CENTER_CROP
+            Glide.with(this).load(i).into(imageView)
             views.add(imageView)
         }
 
