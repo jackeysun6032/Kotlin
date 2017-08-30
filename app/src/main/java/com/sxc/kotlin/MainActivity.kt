@@ -2,16 +2,18 @@ package com.sxc.kotlin
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
+import android.view.MenuItem
 import android.widget.RadioGroup
 import com.sxc.kotlin.home.HomeFragment
 import com.sxc.kotlin.home.MineFragment
 import com.sxc.kotlin.home.StudyFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), RadioGroup.OnCheckedChangeListener {
+class MainActivity : AppCompatActivity() {
 
     private var TAG: String = MainActivity::class.java.simpleName
     var fragments: ArrayList<Fragment> = arrayListOf()
@@ -26,7 +28,17 @@ class MainActivity : AppCompatActivity(), RadioGroup.OnCheckedChangeListener {
         fragments.add(StudyFragment())
         fragments.add(MineFragment())
 
-        menu.setOnCheckedChangeListener(this)
+        navigation.setOnNavigationItemSelectedListener {
+
+            when (it.itemId) {
+                R.id.action_home -> chooseFragment(0)
+                R.id.action_study -> chooseFragment(1)
+                R.id.action_mine -> chooseFragment(2)
+            }
+
+            true
+        }
+
         normalFragment()
         changeTitle(0)
     }
@@ -34,53 +46,28 @@ class MainActivity : AppCompatActivity(), RadioGroup.OnCheckedChangeListener {
     @SuppressLint("CommitTransaction")
     private fun normalFragment() {
         ft = supportFragmentManager.beginTransaction()
-        ft?.replace(R.id.container,fragments[0])
+        ft?.replace(R.id.container, fragments[0])
         ft?.commit()
         showingFragment = fragments[0]
     }
 
-    override fun onCheckedChanged(group: RadioGroup?, checkedId: Int) {
-        when (checkedId) {
-            R.id.home_bt -> chooseFragment(0)
-            R.id.study_bt -> chooseFragment(1)
-            R.id.mine_bt -> chooseFragment(2)
-        }
-        setState()
-    }
 
-    fun chooseFragment(position: Int){
+    private fun chooseFragment(position: Int) {
         ft = supportFragmentManager.beginTransaction()
-        if (fragments[position].isAdded){
+        if (fragments[position].isAdded) {
             ft?.hide(showingFragment)?.show(fragments[position])
-        }else{
-            ft?.hide(showingFragment)?.add(R.id.container,fragments[position])
+        } else {
+            ft?.hide(showingFragment)?.add(R.id.container, fragments[position])
         }
         ft?.commit()
         showingFragment = fragments[position]
         changeTitle(position)
     }
 
-    fun changeTitle(position: Int){
+    private fun changeTitle(position: Int) {
         supportActionBar?.title = resources.getStringArray(R.array.menu)[position]
     }
 
-    fun setState() {
-        if (home_bt.isChecked) {
-            home_bt.setTextColor(resources.getColor(R.color.colorPrimary))
-        } else {
-            home_bt.setTextColor(resources.getColor(R.color.normal))
-        }
-        if (study_bt.isChecked) {
-            study_bt.setTextColor(resources.getColor(R.color.colorPrimary))
-        } else {
-            study_bt.setTextColor(resources.getColor(R.color.normal))
-        }
-        if (mine_bt.isChecked) {
-            mine_bt.setTextColor(resources.getColor(R.color.colorPrimary))
-        } else {
-            mine_bt.setTextColor(resources.getColor(R.color.normal))
-        }
-    }
 }
 
 
