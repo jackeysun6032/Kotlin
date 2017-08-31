@@ -21,6 +21,8 @@ import com.sxc.kotlin.home.banner.BannerHandler
 import com.sxc.kotlin.home.repository.BannerRepository
 import com.sxc.kotlin.splash.BannerAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
+import android.arch.lifecycle.ViewModelProviders
+
 
 /**
  * Created by sunxunchao on 2017/8/24.
@@ -30,8 +32,6 @@ class HomeFragment : LifecycleFragment(), View.OnClickListener, ViewPager.OnPage
     private val TAG: String = HomeFragment::class.java.simpleName
     var bannerAdapter: BannerAdapter? = null
     var imgViews: ArrayList<View> = arrayListOf()
-
-    val bannerRepository = BannerRepository()
 
     val titles = arrayListOf("诡术妖姬", "美女", "戏命师", "疾风剑豪", "暗夜猎手")
 
@@ -47,6 +47,8 @@ class HomeFragment : LifecycleFragment(), View.OnClickListener, ViewPager.OnPage
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        val bannerRepository = ViewModelProviders.of(this).get(BannerRepository::class.java)
 
         bannerRepository.getImgs().observe(this@HomeFragment, Observer<ArrayList<Int>> {
             length = it!!.size
