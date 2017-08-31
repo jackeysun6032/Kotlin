@@ -1,5 +1,7 @@
 package com.sxc.kotlin.home
 
+import android.arch.lifecycle.LifecycleFragment
+import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
@@ -16,23 +18,28 @@ import android.widget.RelativeLayout
 import com.bumptech.glide.Glide
 import com.sxc.kotlin.R
 import com.sxc.kotlin.home.banner.BannerHandler
+import com.sxc.kotlin.home.repository.BannerRepository
 import com.sxc.kotlin.splash.BannerAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
 
 /**
  * Created by sunxunchao on 2017/8/24.
  */
-class HomeFragment : Fragment(), View.OnClickListener, ViewPager.OnPageChangeListener, View.OnTouchListener {
+class HomeFragment : LifecycleFragment(), View.OnClickListener, ViewPager.OnPageChangeListener, View.OnTouchListener {
 
-    val TAG: String = HomeFragment::class.java.simpleName
+    private val TAG: String = HomeFragment::class.java.simpleName
     var bannerAdapter: BannerAdapter? = null
     var imgViews: ArrayList<View> = arrayListOf()
-    val imgs: ArrayList<Int> = arrayListOf(R.mipmap.img1, R.mipmap.img5, R.mipmap.img_xms, R.mipmap.img_ys, R.mipmap.img_vn)
+
+    val bannerRepository = BannerRepository()
+
     val titles = arrayListOf("诡术妖姬", "美女", "戏命师", "疾风剑豪", "暗夜猎手")
 
     var currentPosition = Int.MAX_VALUE / 2
 
     var mHandler: BannerHandler? = null
+
+    var length: Int = 0
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater?.inflate(R.layout.fragment_home, container, false)
@@ -41,19 +48,24 @@ class HomeFragment : Fragment(), View.OnClickListener, ViewPager.OnPageChangeLis
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        for (img in imgs) {
-            var imgView = ImageView(context)
-            imgView.scaleType = ImageView.ScaleType.CENTER_CROP
-            Glide.with(this).load(img).into(imgView)
-            imgViews.add(imgView)
-        }
+        bannerRepository.getImgs().observe(this@HomeFragment, Observer<ArrayList<Int>> {
+            length = it!!.size
 
-        bannerAdapter = BannerAdapter(context, imgViews)
-        viewPager.adapter = bannerAdapter
+            it.map {
+                val imgView = ImageView(context)
+                imgView.scaleType = ImageView.ScaleType.CENTER_CROP
+                Glide.with(this@HomeFragment).load(it).into(imgView)
+                imgViews.add(imgView)
+            }
+            bannerAdapter = BannerAdapter(context, imgViews)
+            viewPager.adapter = bannerAdapter
+
+            initPoints(0)
+        })
+
         viewPager.setOnClickListener(this)
-        viewPager.setOnPageChangeListener(this)
+        viewPager.addOnPageChangeListener(this)
 
-        initPoints(currentPosition % imgs.size)
         initView()
         initMenu()
     }
@@ -91,7 +103,7 @@ class HomeFragment : Fragment(), View.OnClickListener, ViewPager.OnPageChangeLis
         point_circle.removeAllViews()
         var point: ImageView
         var pointRl: RelativeLayout
-        for (i in 0 until imgs.size) {
+        for (i in 0 until length) {
             point = ImageView(context)
             pointRl = RelativeLayout(context)
             pointRl.layoutParams = ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -116,17 +128,17 @@ class HomeFragment : Fragment(), View.OnClickListener, ViewPager.OnPageChangeLis
     }
 
     override fun onPageSelected(position: Int) {
-        title.text = titles[position % imgs.size]
-        currentPosition = position % imgs.size
+        title.text = titles[position % length]
+        currentPosition = position % length
 
         var point: ImageView
         var pointRl: RelativeLayout
-        for (i in 0 until imgs.size) {
+        for (i in 0 until length) {
             pointRl = point_circle.getChildAt(i) as RelativeLayout
             point = pointRl.getChildAt(0) as ImageView
             point.setBackgroundResource(R.drawable.gray_circle_bg)
         }
-        pointRl = point_circle.getChildAt(position % imgs.size) as RelativeLayout
+        pointRl = point_circle.getChildAt(position % length) as RelativeLayout
         point = pointRl.getChildAt(0) as ImageView
         point.setBackgroundResource(R.drawable.white_circle_bg)
     }

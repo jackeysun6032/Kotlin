@@ -1,6 +1,7 @@
 package com.sxc.kotlin
 
 import android.annotation.SuppressLint
+import android.arch.lifecycle.LifecycleActivity
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
@@ -13,7 +14,7 @@ import com.sxc.kotlin.home.MineFragment
 import com.sxc.kotlin.home.StudyFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : LifecycleActivity() {
 
     private var TAG: String = MainActivity::class.java.simpleName
     var fragments: ArrayList<Fragment> = arrayListOf()
@@ -65,7 +66,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun changeTitle(position: Int) {
-        supportActionBar?.title = resources.getStringArray(R.array.menu)[position]
+        //  supportActionBar?.title = resources.getStringArray(R.array.menu)[position]
     }
 
 }
