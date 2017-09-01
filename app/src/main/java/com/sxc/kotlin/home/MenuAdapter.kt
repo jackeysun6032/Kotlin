@@ -17,8 +17,8 @@ import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
 /**
-* Created by jackey on 2017/8/26.
-*/
+ * Created by jackey on 2017/8/26.
+ */
 class MenuAdapter(context: Context, datas: List<String>) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), View.OnClickListener/*, View.OnClickListener*/ {
 
     val TAG = MenuAdapter::class.java.simpleName
@@ -94,7 +94,7 @@ class MenuAdapter(context: Context, datas: List<String>) : RecyclerView.Adapter<
     override fun onClick(view: View?) {
         val position = view?.tag
         if (position is Int)
-            onItemClickListener?.onItemClick(view, position)
+            onItemClickListener.onItemClick(view, position)
     }
 
     override fun getItemViewType(position: Int): Int {

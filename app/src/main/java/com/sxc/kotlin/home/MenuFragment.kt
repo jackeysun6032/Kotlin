@@ -1,10 +1,12 @@
 package com.sxc.kotlin.home
 
+import android.app.Application
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
+import com.sxc.kotlin.App
 import com.sxc.kotlin.R
 import com.sxc.kotlin.utils.ToastUtil
 import com.sxc.kotlin.base.BaseFragment
@@ -32,10 +34,10 @@ class MenuFragment : BaseFragment(), MenuAdapter.OnRecyclerViewItemClickListener
                 recycleView.layoutManager = mLayoutManager
                 mMenuAdapter = MenuAdapter(context, it.asList())
                 recycleView.adapter = mMenuAdapter
+                mMenuAdapter?.setOnRecyclerViewItemClickListener(this@MenuFragment)
             }
         })
 
-        mMenuAdapter?.setOnRecyclerViewItemClickListener(this)
     }
 
     override fun initView() {
