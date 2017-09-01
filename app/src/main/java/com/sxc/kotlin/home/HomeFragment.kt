@@ -22,12 +22,13 @@ import com.sxc.kotlin.home.repository.BannerRepository
 import com.sxc.kotlin.splash.BannerAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
 import android.arch.lifecycle.ViewModelProviders
+import com.sxc.kotlin.base.BaseFragment
 
 
 /**
  * Created by sunxunchao on 2017/8/24.
  */
-class HomeFragment : LifecycleFragment(), View.OnClickListener, ViewPager.OnPageChangeListener, View.OnTouchListener {
+class HomeFragment : BaseFragment(), View.OnClickListener, ViewPager.OnPageChangeListener, View.OnTouchListener {
 
     private val TAG: String = HomeFragment::class.java.simpleName
     var bannerAdapter: BannerAdapter? = null
@@ -41,13 +42,9 @@ class HomeFragment : LifecycleFragment(), View.OnClickListener, ViewPager.OnPage
 
     var length: Int = 0
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_home, container, false)
-    }
+    override fun getLayoutId(): Int = R.layout.fragment_home
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
+    override fun initView() {
         val bannerRepository = ViewModelProviders.of(this).get(BannerRepository::class.java)
 
         bannerRepository.getImgs().observe(this@HomeFragment, Observer<ArrayList<Int>> {
@@ -68,8 +65,14 @@ class HomeFragment : LifecycleFragment(), View.OnClickListener, ViewPager.OnPage
         viewPager.setOnClickListener(this)
         viewPager.addOnPageChangeListener(this)
 
-        initView()
+        viewPager.currentItem = currentPosition
+        viewPager.setOnTouchListener(this)
+
         initMenu()
+    }
+
+    override fun initData() {
+
     }
 
     /**
@@ -81,10 +84,6 @@ class HomeFragment : LifecycleFragment(), View.OnClickListener, ViewPager.OnPage
         ft.commit()
     }
 
-    fun initView() {
-        viewPager.currentItem = currentPosition
-        viewPager.setOnTouchListener(this)
-    }
 
     override fun onTouch(v: View?, event: MotionEvent?): Boolean {
         when (event?.action) {
