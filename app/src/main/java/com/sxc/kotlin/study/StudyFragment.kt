@@ -5,11 +5,13 @@ import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.View
+import com.sxc.kotlin.App
 import com.sxc.kotlin.R
 import com.sxc.kotlin.base.BaseFragment
 import com.sxc.kotlin.study.KotlinActivity
 import com.sxc.kotlin.study.StudyAdapter
 import com.sxc.kotlin.study.repository.StudyRepository
+import com.sxc.kotlin.utils.ToastUtil
 import com.sxc.kotlin.utils.recyclerViewUtil.ItemTouchCallback
 import com.sxc.kotlin.utils.recyclerViewUtil.OnRecyclerViewItemClickListener
 import kotlinx.android.synthetic.main.fragment_study.*
@@ -34,12 +36,17 @@ class StudyFragment : BaseFragment() {
 //                recycleView.addItemDecoration(StudyDecoration(context))
                 studyAdapter = StudyAdapter(context)
                 recycleView.adapter = studyAdapter
-                studyAdapter?.setItems(it.asList())
+
                 var datas = arrayListOf<String>()
                 it.forEach {
                     datas.add(it)
                 }
-                itemTouchHelper = ItemTouchHelper(ItemTouchCallback(studyAdapter!!, datas))
+
+                studyAdapter?.setItems(datas)
+
+                val call = ItemTouchCallback(studyAdapter!!)
+//                call.canSwipe = false
+                itemTouchHelper = ItemTouchHelper(call)
                 itemTouchHelper?.attachToRecyclerView(recycleView)
                 studyAdapter?.setOnRecyclerViewItemClickListener(onStudyItemClick(datas))
             }
@@ -59,6 +66,7 @@ class StudyFragment : BaseFragment() {
         }
 
         override fun onItemClick(view: View?, position: Int) {
+            ToastUtil.show(App.get(), position.toString())
             KotlinActivity.startActivity(activity, datas[position])
         }
     }

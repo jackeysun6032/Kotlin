@@ -4,24 +4,19 @@ import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.util.Log
-import java.util.*
+import com.sxc.kotlin.study.StudyAdapter
 
 /**
  * Created by jackey on 2017/9/2.
  * todo() 有一个隐藏bug
  */
-class ItemTouchCallback<T>(adapter: RecyclerView.Adapter<RecyclerView.ViewHolder>, datas: ArrayList<T>) : ItemTouchHelper.Callback() {
+class ItemTouchCallback<VH : RecyclerView.ViewHolder>(adapter: RecyclerView.Adapter<VH>) : ItemTouchHelper.Callback() {
 
     private val TAG = ItemTouchCallback::class.java.simpleName
-    private var datas: ArrayList<T>? = null
-    private var mAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder> = adapter
+    private var mAdapter: RecyclerView.Adapter<VH> = adapter
 
     var canSwipe = true
     var canDrag = true
-
-    init {
-        this.datas = datas
-    }
 
     override fun getMovementFlags(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?): Int {
         Log.d(TAG, "getMovementFlags")
@@ -32,26 +27,19 @@ class ItemTouchCallback<T>(adapter: RecyclerView.Adapter<RecyclerView.ViewHolder
 
     override fun onMove(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?, target: RecyclerView.ViewHolder?): Boolean {
         Log.d(TAG, "onMove")
-        val fromPosition = viewHolder?.adapterPosition //拖拽的item的位置
-        val toPosition = target?.adapterPosition//拖拽到的item位置
-        if (fromPosition!! < toPosition!!) {
-            for (i in fromPosition until toPosition) {
-                Collections.swap(datas, i, i + 1)
-            }
-        } else {
-            for (i in fromPosition downTo toPosition + 1) {
-                Collections.swap(datas, i, i - 1)
-            }
+        if (viewHolder?.itemViewType != target?.itemViewType) {
+            return false
         }
-        mAdapter.notifyItemMoved(fromPosition, toPosition)
+        if (mAdapter is StudyAdapter)
+            (mAdapter as StudyAdapter).onItemMove(viewHolder?.adapterPosition!!, target?.adapterPosition!!)
         return true //执行拖拽
     }
 
+
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder?, direction: Int) {
         Log.d(TAG, "onSwiped")
-        val position = viewHolder?.adapterPosition
-        datas?.removeAt(position!!)
-        mAdapter.notifyItemRemoved(position!!)
+        if (mAdapter is StudyAdapter)
+            (mAdapter as StudyAdapter).onItemDismiss(viewHolder?.adapterPosition!!)
     }
 
 

@@ -2,25 +2,20 @@ package com.sxc.kotlin.study
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import com.sxc.kotlin.R
+import com.sxc.kotlin.utils.recyclerViewUtil.BaseRecyclerViewAdapter
 import com.sxc.kotlin.utils.recyclerViewUtil.OnRecyclerViewItemClickListener
+import java.util.*
 
 /**
  * Created by sunxunchao on 2017/8/22.
  */
-class StudyAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>(), View.OnClickListener {
+class StudyAdapter(context: Context) : BaseRecyclerViewAdapter<String, StudyAdapter.ViewHolder>(context), View.OnClickListener {
 
-    var context: Context? = null
-    var datas: List<String>? = null
-    var holder: RecyclerView.ViewHolder? = null
 
-    init {
-        this.context = context
-    }
+    var datas: ArrayList<String>? = null
 
     private lateinit var onItemClickListener: OnRecyclerViewItemClickListener
 
@@ -28,16 +23,15 @@ class StudyAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHol
         this.onItemClickListener = onRecyclerViewItemClickListener
     }
 
-    fun setItems(datas: List<String>) {
+    fun setItems(datas: ArrayList<String>) {
         this.datas = datas
+        this.item = datas
         this.notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
-        val itemView: View = LayoutInflater.from(context).inflate(R.layout.simple_list_item, parent, false)
-        itemView?.setOnClickListener(this)
-        return ViewHolder(itemView)
-    }
+    override fun getViewId(): Int = R.layout.simple_list_item
+
+    override fun createViewHolder(itemView: View?): ViewHolder = ViewHolder(itemView!!)
 
     override fun onClick(view: View?) {
         val position = view?.tag
@@ -45,17 +39,16 @@ class StudyAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHol
             onItemClickListener.onItemClick(view, position)
     }
 
-
-
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
-        if (holder is ViewHolder) holder?.tv?.text = datas?.get(position)
-        holder?.itemView?.tag = position
-        this.holder = holder
+    override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
+        super.onBindViewHolder(holder, position)
+        if (holder is ViewHolder) holder.tv?.text = datas?.get(position)
     }
 
     override fun getItemCount(): Int = datas?.size ?: 0
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder: RecyclerView.ViewHolder {
+
+        constructor(itemView: View):super(itemView)
         var tv: TextView? = null
 
         init {
