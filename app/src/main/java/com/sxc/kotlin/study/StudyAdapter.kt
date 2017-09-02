@@ -31,7 +31,7 @@ class StudyAdapter(context: Context) : BaseRecyclerViewAdapter<String, StudyAdap
 
     override fun getViewId(): Int = R.layout.simple_list_item
 
-    override fun createViewHolder(itemView: View?): ViewHolder = ViewHolder(itemView!!)
+    override fun createViewHolder(itemView: View): ViewHolder = ViewHolder(itemView)
 
     override fun onClick(view: View?) {
         val position = view?.tag

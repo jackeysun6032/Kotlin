@@ -14,7 +14,6 @@ abstract class BaseRecyclerViewAdapter<T, VH: RecyclerView.ViewHolder>(context: 
 
     var context: Context? = null
     var item: ArrayList<T> =  arrayListOf()
-    protected var itemView: View? = null
 
     init {
         this.context = context
@@ -31,8 +30,8 @@ abstract class BaseRecyclerViewAdapter<T, VH: RecyclerView.ViewHolder>(context: 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): VH {
-        itemView = LayoutInflater.from(context).inflate(getViewId(),parent,false)
-        itemView?.setOnClickListener(this)
+        val itemView = LayoutInflater.from(context).inflate(getViewId(),parent,false)
+        itemView.setOnClickListener(this)
         return createViewHolder(itemView)
     }
 
@@ -42,6 +41,6 @@ abstract class BaseRecyclerViewAdapter<T, VH: RecyclerView.ViewHolder>(context: 
 
     abstract fun getViewId(): Int
 
-    abstract fun createViewHolder(itemView:View?):VH
+    abstract fun createViewHolder(itemView:View):VH
 
 }
