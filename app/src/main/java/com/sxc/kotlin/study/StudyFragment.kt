@@ -1,45 +1,56 @@
 package com.sxc.kotlin.home
 
-import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.AdapterView
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.helper.ItemTouchHelper
 import com.sxc.kotlin.R
-import com.sxc.kotlin.study.KotlinActivity
+import com.sxc.kotlin.base.BaseFragment
 import com.sxc.kotlin.study.StudyAdapter
+import com.sxc.kotlin.study.repository.StudyRepository
+import com.sxc.kotlin.utils.recyclerViewUtil.ItemTouchCallback
 import kotlinx.android.synthetic.main.fragment_study.*
-import java.util.*
 
 /**
  * Created by sunxunchao on 2017/8/24.
  */
-class StudyFragment : Fragment(), AdapterView.OnItemClickListener {
+class StudyFragment : BaseFragment() {
 
     var studyAdapter: StudyAdapter? = null
-    var studyContent = emptyArray<String>()
+    var mLayoutManager: LinearLayoutManager? = null
+    var itemTouchHelper: ItemTouchHelper? = null
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater?.inflate(R.layout.fragment_study, container, false)
+    override fun getLayoutId(): Int = R.layout.fragment_study
+
+    override fun initView() {
+        val studyRepository = ViewModelProviders.of(this).get(StudyRepository::class.java)
+        studyRepository.getStudyDatas().observe(this@StudyFragment, Observer<Array<String>> {
+            it?.let {
+                mLayoutManager = LinearLayoutManager(context)
+                recycleView.layoutManager = mLayoutManager
+//                recycleView.addItemDecoration(StudyDecoration(context))
+                studyAdapter = StudyAdapter(context)
+                recycleView.adapter = studyAdapter
+                studyAdapter?.setItems(it.asList())
+                var datas = arrayListOf<String>()
+                it.forEach {
+                    datas.add(it)
+                }
+                val callback = ItemTouchCallback(studyAdapter!!, datas)
+                callback.canSwipe = false
+                itemTouchHelper = ItemTouchHelper(callback)
+                itemTouchHelper?.attachToRecyclerView(recycleView)
+            }
+        })
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun initData() {
 
-        studyAdapter = StudyAdapter(context)
-        listView.adapter = studyAdapter
-
-        studyContent = context.resources.getStringArray(R.array.study_content)
-        var datas = ArrayList<String>()
-        studyContent.forEach { content -> datas.add(content) }
-        studyAdapter?.datas = datas
-
-        listView.onItemClickListener = this
     }
 
 
-    override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        KotlinActivity.startActivity(activity, studyContent[position])
-    }
+
+//    override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+//        KotlinActivity.startActivity(activity, studyContent[position])
+//    }
 }

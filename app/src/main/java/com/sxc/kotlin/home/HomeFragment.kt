@@ -1,13 +1,10 @@
 package com.sxc.kotlin.home
 
-import android.arch.lifecycle.LifecycleFragment
 import android.arch.lifecycle.Observer
-import android.os.Bundle
-import android.support.v4.app.Fragment
+import android.arch.lifecycle.ViewModelProviders
 import android.support.v4.app.FragmentTransaction
 import android.support.v4.view.ViewPager
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.MotionEvent.ACTION_DOWN
 import android.view.MotionEvent.ACTION_UP
@@ -17,12 +14,11 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import com.bumptech.glide.Glide
 import com.sxc.kotlin.R
+import com.sxc.kotlin.base.BaseFragment
 import com.sxc.kotlin.home.banner.BannerHandler
 import com.sxc.kotlin.home.repository.BannerRepository
 import com.sxc.kotlin.splash.BannerAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
-import android.arch.lifecycle.ViewModelProviders
-import com.sxc.kotlin.base.BaseFragment
 
 
 /**
