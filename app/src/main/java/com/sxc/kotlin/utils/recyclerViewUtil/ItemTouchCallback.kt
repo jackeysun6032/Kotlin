@@ -1,10 +1,10 @@
 package com.sxc.kotlin.utils.recyclerViewUtil
 
+import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.util.Log
 import java.util.*
-import kotlin.collections.ArrayList
 
 /**
  * Created by jackey on 2017/9/2.
@@ -67,4 +67,15 @@ class ItemTouchCallback<T>(adapter: RecyclerView.Adapter<RecyclerView.ViewHolder
     }
 
 
+    override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+        if (actionState != ItemTouchHelper.ACTION_STATE_IDLE) {
+            viewHolder?.itemView?.setBackgroundColor(Color.LTGRAY)
+        }
+        super.onSelectedChanged(viewHolder, actionState)
+    }
+
+    override fun clearView(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder?) {
+        super.clearView(recyclerView, viewHolder)
+        viewHolder?.itemView?.setBackgroundColor(0)
+    }
 }

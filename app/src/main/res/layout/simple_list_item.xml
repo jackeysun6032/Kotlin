@@ -8,7 +8,7 @@
             android:id="@+id/text"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:background="@drawable/white_gray_selector"
+            android:background="?attr/selectableItemBackground"
             android:gravity="center"
             android:text="Kotlin"
             android:textColor="@android:color/holo_blue_light"

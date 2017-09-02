@@ -4,11 +4,14 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.helper.ItemTouchHelper
+import android.view.View
 import com.sxc.kotlin.R
 import com.sxc.kotlin.base.BaseFragment
+import com.sxc.kotlin.study.KotlinActivity
 import com.sxc.kotlin.study.StudyAdapter
 import com.sxc.kotlin.study.repository.StudyRepository
 import com.sxc.kotlin.utils.recyclerViewUtil.ItemTouchCallback
+import com.sxc.kotlin.utils.recyclerViewUtil.OnRecyclerViewItemClickListener
 import kotlinx.android.synthetic.main.fragment_study.*
 
 /**
@@ -36,10 +39,9 @@ class StudyFragment : BaseFragment() {
                 it.forEach {
                     datas.add(it)
                 }
-                val callback = ItemTouchCallback(studyAdapter!!, datas)
-                callback.canSwipe = false
-                itemTouchHelper = ItemTouchHelper(callback)
+                itemTouchHelper = ItemTouchHelper(ItemTouchCallback(studyAdapter!!, datas))
                 itemTouchHelper?.attachToRecyclerView(recycleView)
+                studyAdapter?.setOnRecyclerViewItemClickListener(onStudyItemClick(datas))
             }
         })
     }
@@ -48,9 +50,16 @@ class StudyFragment : BaseFragment() {
 
     }
 
+    private inner class onStudyItemClick(datas: ArrayList<String>) : OnRecyclerViewItemClickListener {
 
+        var datas: ArrayList<String> = arrayListOf()
 
-//    override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-//        KotlinActivity.startActivity(activity, studyContent[position])
-//    }
+        init {
+            this.datas = datas
+        }
+
+        override fun onItemClick(view: View?, position: Int) {
+            KotlinActivity.startActivity(activity, datas[position])
+        }
+    }
 }
