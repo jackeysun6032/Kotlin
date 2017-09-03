@@ -29,7 +29,6 @@
         </activity>
         <activity
             android:name=".login.LoginActivity"
-            android:label="@string/title_activity_login"
             android:launchMode="singleTask"/>
         <activity android:name=".study.KotlinActivity" />
     </application>
