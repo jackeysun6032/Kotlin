@@ -4,6 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context="com.sxc.kotlin.login.LoginActivity">
 
     <!--背景-->
@@ -41,7 +43,7 @@
                 android:textColorHint="@android:color/white">
 
                 <AutoCompleteTextView
-                    android:id="@+id/email"
+                    android:id="@+id/account"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:background="@drawable/line_selector"
