@@ -8,12 +8,11 @@ import com.sxc.kotlin.study.StudyAdapter
 
 /**
  * Created by jackey on 2017/9/2.
- * todo() 有一个隐藏bug
  */
-class ItemTouchCallback<VH : RecyclerView.ViewHolder>(adapter: RecyclerView.Adapter<VH>) : ItemTouchHelper.Callback() {
+class ItemTouchCallback<T,VH : RecyclerView.ViewHolder>(adapter: BaseRecyclerViewAdapter<T,VH>?) : ItemTouchHelper.Callback() {
 
     private val TAG = ItemTouchCallback::class.java.simpleName
-    private var mAdapter: RecyclerView.Adapter<VH> = adapter
+    private var mAdapter: RecyclerView.Adapter<VH>? = adapter
 
     var canSwipe = true
     var canDrag = true

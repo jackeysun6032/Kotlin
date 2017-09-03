@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.helper.ItemTouchHelper
+import android.util.Log
 import android.view.View
 import com.sxc.kotlin.App
 import com.sxc.kotlin.R
@@ -21,7 +22,8 @@ import kotlinx.android.synthetic.main.fragment_study.*
  */
 class StudyFragment : BaseFragment() {
 
-    var studyAdapter: StudyAdapter? = null
+    private val TAG = StudyAdapter::class.java.simpleName
+    private var studyAdapter: StudyAdapter? = null
     var mLayoutManager: LinearLayoutManager? = null
     var itemTouchHelper: ItemTouchHelper? = null
 
@@ -44,11 +46,11 @@ class StudyFragment : BaseFragment() {
 
                 studyAdapter?.setItems(datas)
 
-                val call = ItemTouchCallback(studyAdapter!!)
+                val call = ItemTouchCallback(studyAdapter)
 //                call.canSwipe = false
                 itemTouchHelper = ItemTouchHelper(call)
                 itemTouchHelper?.attachToRecyclerView(recycleView)
-                studyAdapter?.setOnRecyclerViewItemClickListener(onStudyItemClick(datas))
+                studyAdapter?.setOnRecyclerViewItemClickListener(onStudyItemClick())
             }
         })
     }
@@ -57,15 +59,13 @@ class StudyFragment : BaseFragment() {
 
     }
 
-    private inner class onStudyItemClick(datas: ArrayList<String>) : OnRecyclerViewItemClickListener {
+    private inner class onStudyItemClick : OnRecyclerViewItemClickListener {
 
-        var datas: ArrayList<String> = arrayListOf()
 
-        init {
-            this.datas = datas
-        }
+        override fun onItemClick(view: View?, position: Int, anys: Any?) {
+            var datas = anys as ArrayList<String>
 
-        override fun onItemClick(view: View?, position: Int) {
+            Log.d(TAG, "position::" + position.toString() + "data::" + datas.toString())
             ToastUtil.show(App.get(), position.toString())
             KotlinActivity.startActivity(activity, datas[position])
         }

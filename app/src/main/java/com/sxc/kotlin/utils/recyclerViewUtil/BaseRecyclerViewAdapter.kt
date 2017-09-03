@@ -10,27 +10,47 @@ import java.util.*
 /**
  * Created by jackey on 2017/9/2.
  */
-abstract class BaseRecyclerViewAdapter<T, VH: RecyclerView.ViewHolder>(context: Context): RecyclerView.Adapter<VH>(),ItemTouchHelperAdapter, View.OnClickListener {
+abstract class BaseRecyclerViewAdapter<T, VH : RecyclerView.ViewHolder>(context: Context) : RecyclerView.Adapter<VH>(), ItemTouchHelperAdapter, View.OnClickListener {
 
     var context: Context? = null
-    var item: ArrayList<T> =  arrayListOf()
+    var datas: ArrayList<T> = arrayListOf()
 
     init {
         this.context = context
     }
+
+    private lateinit var onItemClickListener: OnRecyclerViewItemClickListener
+
+    fun setOnRecyclerViewItemClickListener(onRecyclerViewItemClickListener: OnRecyclerViewItemClickListener) {
+        this.onItemClickListener = onRecyclerViewItemClickListener
+    }
+
+    override fun onClick(view: View?) {
+        val position = view?.tag
+        if (position is Int)
+            onItemClickListener.onItemClick(view, position, datas)
+    }
+
+    fun setItems(datas: ArrayList<T>) {
+        this.datas = datas
+        this.notifyDataSetChanged()
+    }
+
     override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
-        Collections.swap(item, fromPosition, toPosition)
+        Collections.swap(datas, fromPosition, toPosition)
         notifyItemMoved(fromPosition, toPosition)
+        notifyItemRangeChanged(0, datas.size) //数据变化导致position错误的问题
         return true
     }
 
     override fun onItemDismiss(position: Int) {
-        item.removeAt(position)
+        datas.removeAt(position)
         notifyItemRemoved(position)
+        notifyItemRangeChanged(position, datas.size)//数据变化导致position错误的问题
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): VH {
-        val itemView = LayoutInflater.from(context).inflate(getViewId(),parent,false)
+        val itemView = LayoutInflater.from(context).inflate(getViewId(), parent, false)
         itemView.setOnClickListener(this)
         return createViewHolder(itemView)
     }
@@ -41,6 +61,6 @@ abstract class BaseRecyclerViewAdapter<T, VH: RecyclerView.ViewHolder>(context: 
 
     abstract fun getViewId(): Int
 
-    abstract fun createViewHolder(itemView:View):VH
+    abstract fun createViewHolder(itemView: View): VH
 
 }
