@@ -9,12 +9,19 @@
         <item name="actionBarPopupTheme">@style/AppTheme.PopupOverlay</item>
         <item name="actionBarStyle">@style/AppTheme.AppBarOverlay</item>
         <item name="android:listDivider">@drawable/line</item>
+        <item name="android:windowAnimationStyle">@style/animation_translucent_translate</item>
+    </style>
+
+    <style name="animation_translucent_translate" parent="@android:style/Animation.Translucent">
+        <item name="android:windowEnterAnimation">@anim/anim_in</item>
+        <item name="android:windowExitAnimation">@anim/anim_out</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:listDivider">@drawable/line</item>
+        <item name="android:windowAnimationStyle">@style/animation_translucent_translate</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

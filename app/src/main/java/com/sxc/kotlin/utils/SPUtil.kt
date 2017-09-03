@@ -29,10 +29,10 @@ object SPUtil {
     fun put(key: String, any: Any) {
         when (any) {
             is String -> editor?.putString(key, any)
-            is Int -> editor?.putInt(key, key as Int)
-            is Boolean -> editor?.putBoolean(key, key as Boolean)
-            is Float -> editor?.putFloat(key, key as Float)
-            is Long -> editor?.putLong(key, key as Long)
+            is Int -> editor?.putInt(key, any)
+            is Boolean -> editor?.putBoolean(key, any)
+            is Float -> editor?.putFloat(key, any)
+            is Long -> editor?.putLong(key, any)
             else -> editor?.putString(key, any.toString())
         }
         editor?.apply()

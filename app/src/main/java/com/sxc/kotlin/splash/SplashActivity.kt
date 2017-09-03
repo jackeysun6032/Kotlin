@@ -3,31 +3,55 @@ package com.sxc.kotlin.splash
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.view.ViewPager
-import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.ImageView
-import com.sxc.kotlin.MainActivity
-import com.sxc.kotlin.R
-import kotlinx.android.synthetic.main.activity_splash.*
-import android.view.ViewGroup
 import android.widget.RelativeLayout
 import com.bumptech.glide.Glide
+import com.sxc.kotlin.R
+import com.sxc.kotlin.base.BaseActivity
 import com.sxc.kotlin.login.LoginActivity
+import com.sxc.kotlin.utils.SPUtil
+import kotlinx.android.synthetic.main.activity_splash.*
 
 
-class SplashActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
+class SplashActivity : BaseActivity(), ViewPager.OnPageChangeListener {
 
     var splashAdapter: SplashAdapter? = null
     val imgs = arrayListOf(R.mipmap.img2, R.mipmap.img3, R.mipmap.img4, R.mipmap.img6)
     var views: ArrayList<View> = arrayListOf()
+    private val FIRST_USE = "FIRST_USE"
+    var isFirst: Boolean? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)  //设置全屏
-        setContentView(R.layout.activity_splash)
         supportActionBar?.hide()
+    }
 
+    override fun getLayoutId(): Int {
+
+        isFirst = SPUtil.get(FIRST_USE, true) as Boolean
+
+        return if (isFirst as Boolean) {
+            R.layout.activity_splash
+        } else {
+            R.layout.activity_welcome
+        }
+    }
+
+    override fun initView() {
+
+        if (isFirst as Boolean) {
+            initSplashView()
+        } else {
+            initWelcomeView()
+        }
+
+    }
+
+    private fun initSplashView() {
         for (i in imgs) {
             var imageView = ImageView(this)
             imageView.scaleType = ImageView.ScaleType.CENTER_CROP
@@ -40,14 +64,30 @@ class SplashActivity : AppCompatActivity(), ViewPager.OnPageChangeListener {
         viewPager.setOnPageChangeListener(this)
 
         jump_click.setOnClickListener {
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish()
+            SPUtil.put(FIRST_USE, false)
+            jumpToLogin()
         }
 
         initPoints(0)
     }
 
-    fun initPoints(selectPoint: Int) {
+    private fun initWelcomeView() {
+        Thread(Runnable {
+            Thread.sleep(2000)
+            jumpToLogin()
+        }).start()
+    }
+
+    private fun jumpToLogin() {
+        startActivity(Intent(this, LoginActivity::class.java))
+        finish()
+//        overridePendingTransition(R.anim.anim_in, R.anim.anim_out)
+    }
+
+    override fun initData() {
+    }
+
+    private fun initPoints(selectPoint: Int) {
         point_ll.removeAllViews()
         var point: ImageView
         var pointRl: RelativeLayout
