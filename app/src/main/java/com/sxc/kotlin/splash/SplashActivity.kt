@@ -25,9 +25,9 @@ class SplashActivity : BaseActivity(), ViewPager.OnPageChangeListener {
     var isFirst: Boolean? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)  //设置全屏
         supportActionBar?.hide()
+        super.onCreate(savedInstanceState)
     }
 
     override fun getLayoutId(): Int {
