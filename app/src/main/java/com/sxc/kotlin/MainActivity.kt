@@ -9,21 +9,18 @@ import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import android.widget.RadioGroup
+import com.sxc.kotlin.base.BaseActivity
 import com.sxc.kotlin.home.HomeFragment
 import com.sxc.kotlin.home.MineFragment
 import com.sxc.kotlin.home.StudyFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : LifecycleActivity() {
+class MainActivity : BaseActivity() {
+    override fun initData() {
 
-    private var TAG: String = MainActivity::class.java.simpleName
-    var fragments: ArrayList<Fragment> = arrayListOf()
-    var ft: FragmentTransaction? = null
-    var showingFragment: Fragment? = null
+    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    override fun initView() {
 
         fragments.add(HomeFragment())
         fragments.add(StudyFragment())
@@ -44,6 +41,14 @@ class MainActivity : LifecycleActivity() {
         changeTitle(0)
     }
 
+    override fun getLayoutId(): Int = R.layout.activity_main
+
+    private var TAG: String = MainActivity::class.java.simpleName
+    var fragments: ArrayList<Fragment> = arrayListOf()
+    var ft: FragmentTransaction? = null
+    var showingFragment: Fragment? = null
+
+
     @SuppressLint("CommitTransaction")
     private fun normalFragment() {
         ft = supportFragmentManager.beginTransaction()
@@ -51,7 +56,6 @@ class MainActivity : LifecycleActivity() {
         ft?.commit()
         showingFragment = fragments[0]
     }
-
 
     private fun chooseFragment(position: Int) {
         ft = supportFragmentManager.beginTransaction()

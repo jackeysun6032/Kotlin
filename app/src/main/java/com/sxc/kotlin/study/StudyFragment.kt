@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.util.Log
 import android.view.View
+import com.alibaba.android.arouter.launcher.ARouter
 import com.sxc.kotlin.App
 import com.sxc.kotlin.R
 import com.sxc.kotlin.base.BaseFragment
@@ -59,15 +60,13 @@ class StudyFragment : BaseFragment() {
 
     }
 
-    private inner class onStudyItemClick : OnRecyclerViewItemClickListener {
+    inner class onStudyItemClick : OnRecyclerViewItemClickListener<ArrayList<String>> {
 
-
-        override fun onItemClick(view: View?, position: Int, anys: Any?) {
-            var datas = anys as ArrayList<String>
-
-            Log.d(TAG, "position::" + position.toString() + "data::" + datas.toString())
-            ToastUtil.show(App.get(), position.toString())
-            KotlinActivity.startActivity(activity, datas[position])
+        override fun onItemClick(view: View?, position: Int, data: ArrayList<String>) {
+            ARouter.getInstance().build("/study/kotlin")
+                    .withString(KotlinActivity.TITLE_TAG, data[position])
+                    .navigation()
         }
+
     }
 }

@@ -5,7 +5,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.amap.api.col.sln3.t
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Created by jackey on 2017/9/2.
@@ -19,9 +21,9 @@ abstract class BaseRecyclerViewAdapter<T, VH : RecyclerView.ViewHolder>(context:
         this.context = context
     }
 
-    private lateinit var onItemClickListener: OnRecyclerViewItemClickListener
+    private lateinit var onItemClickListener: OnRecyclerViewItemClickListener<ArrayList<T>>
 
-    fun setOnRecyclerViewItemClickListener(onRecyclerViewItemClickListener: OnRecyclerViewItemClickListener) {
+    fun setOnRecyclerViewItemClickListener(onRecyclerViewItemClickListener: OnRecyclerViewItemClickListener<ArrayList<T>>) {
         this.onItemClickListener = onRecyclerViewItemClickListener
     }
 

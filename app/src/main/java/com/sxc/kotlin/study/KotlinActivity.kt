@@ -1,31 +1,21 @@
 package com.sxc.kotlin.study
 
-import android.app.Activity
-import android.content.Intent
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
 import android.view.MenuItem
+import com.alibaba.android.arouter.facade.annotation.Route
 
 import com.sxc.kotlin.R
+import com.sxc.kotlin.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_kotlin.*
 import kotlinx.android.synthetic.main.toolbar.*
 
-class KotlinActivity : AppCompatActivity() {
+@Route(path = "/study/kotlin")
+open class KotlinActivity : BaseActivity() {
 
+    override fun initData() {
 
-    companion object {
-        val TITLE_TAG: String = "TITLE_TAG"
-
-        fun startActivity(activity: Activity, title: String) {
-            var intent: Intent = Intent(activity, KotlinActivity::class.java)
-            intent.putExtra(TITLE_TAG, title)
-            activity.startActivity(intent)
-        }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_kotlin)
+    override fun initView() {
         var titleContent = intent.getStringExtra(TITLE_TAG)
         setSupportActionBar(toolbar)
         supportActionBar?.title = titleContent
@@ -35,14 +25,19 @@ class KotlinActivity : AppCompatActivity() {
         content.text = titleContent
     }
 
+    override fun getLayoutId(): Int = R.layout.activity_kotlin
+
+    override fun isTintStatusBar() = false
+
+    companion object {
+        val TITLE_TAG: String = "TITLE_TAG"
+    }
+
+
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             android.R.id.home -> finish()
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    object start {
-
     }
 }
