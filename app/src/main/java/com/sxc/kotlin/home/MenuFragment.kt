@@ -1,17 +1,16 @@
 package com.sxc.kotlin.home
 
-import android.app.Application
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
-import com.sxc.kotlin.App
 import com.sxc.kotlin.R
-import com.sxc.kotlin.utils.ToastUtil
 import com.sxc.kotlin.base.BaseFragment
-import com.sxc.kotlin.home.repository.BannerRepository
+import com.sxc.kotlin.home.map.MapActivity
 import com.sxc.kotlin.home.repository.ClassFiyRepository
+import com.sxc.kotlin.utils.ToastUtil
 import kotlinx.android.synthetic.main.fragment_menu.*
 
 /**
@@ -44,7 +43,8 @@ class MenuFragment : BaseFragment(), MenuAdapter.OnRecyclerViewItemClickListener
     }
 
     override fun onItemClick(view: View?, position: Int) {
-        ToastUtil.show(context, "click" + position)
+        if (position % 4 == 0)
+            startActivity(Intent(activity, MapActivity::class.java))
     }
 
     override fun initData() {

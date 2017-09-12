@@ -3,6 +3,14 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'kotlin'
+            keyPassword '123456'
+            storeFile file('F:/workSpace/Kotlin_beta1/Kotlin/kotlin.jks')
+            storePassword '123456'
+        }
+    }
     compileSdkVersion 26
     buildToolsVersion "26.0.1"
     defaultConfig {
@@ -17,16 +25,27 @@ android {
                 arguments = [ moduleName : project.getName() ]
             }
         }
+        ndk {
+            //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
+            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86","arm64-v8a","x86_64"
+        }
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
     }
 }
 
@@ -49,10 +68,8 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
     implementation 'com.zhihu.android:matisse:0.4.3'
-
-
-    implementation "android.arch.lifecycle:runtime:1.0.0-alpha9"
-    implementation "android.arch.lifecycle:extensions:1.0.0-alpha9"
+    implementation 'android.arch.lifecycle:runtime:1.0.0-alpha9'
+    implementation 'android.arch.lifecycle:extensions:1.0.0-alpha9'
     annotationProcessor "android.arch.lifecycle:compiler:1.0.0-alpha9"
 
     compile 'com.alibaba:arouter-api:1.2.1'

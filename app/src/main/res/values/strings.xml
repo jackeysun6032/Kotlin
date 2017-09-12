@@ -50,6 +50,9 @@
         <item>音乐</item>
         <item>图书</item>
     </array>
+
+    <string name="appKey">3c056765a2527b48733d23f730767924</string>
+
     <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"
