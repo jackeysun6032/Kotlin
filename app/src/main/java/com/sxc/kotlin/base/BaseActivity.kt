@@ -5,12 +5,22 @@ import android.support.v7.app.AppCompatActivity
 import com.readystatesoftware.systembartint.SystemBarTintManager
 import android.view.WindowManager
 import android.annotation.TargetApi
+import android.arch.lifecycle.LifecycleActivity
+import android.arch.lifecycle.LifecycleRegistry
+import android.arch.lifecycle.LifecycleRegistryOwner
 
 
 /**
  * Created by jackey on 2017/8/26.
  */
-abstract class BaseActivity : AppCompatActivity() {
+abstract class BaseActivity : AppCompatActivity(),LifecycleRegistryOwner {
+
+
+    private val mRegistry = LifecycleRegistry(this)
+
+    override fun getLifecycle(): LifecycleRegistry {
+        return mRegistry
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

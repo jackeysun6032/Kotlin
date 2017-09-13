@@ -1,6 +1,7 @@
 package com.sxc.kotlin.home
 
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.helper.ItemTouchHelper
@@ -10,6 +11,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.sxc.kotlin.App
 import com.sxc.kotlin.R
 import com.sxc.kotlin.base.BaseFragment
+import com.sxc.kotlin.bean.VideoBean
 import com.sxc.kotlin.study.KotlinActivity
 import com.sxc.kotlin.study.StudyAdapter
 import com.sxc.kotlin.study.repository.StudyRepository
@@ -28,43 +30,46 @@ class StudyFragment : BaseFragment() {
     var mLayoutManager: LinearLayoutManager? = null
     var itemTouchHelper: ItemTouchHelper? = null
 
+   private lateinit var viewModel: ViewModelProvider
+
     override fun getLayoutId(): Int = R.layout.fragment_study
 
     override fun initView() {
-        val studyRepository = ViewModelProviders.of(this).get(StudyRepository::class.java)
-        studyRepository.getStudyDatas().observe(this@StudyFragment, Observer<Array<String>> {
-            it?.let {
-                mLayoutManager = LinearLayoutManager(context)
-                recycleView.layoutManager = mLayoutManager
+
+        viewModel=ViewModelProviders.of(this)
+
+        val studyRepository =viewModel.get(StudyRepository::class.java)
+
+
+        studyRepository.getHtmlData().observe(this@StudyFragment, Observer<MutableList<VideoBean>> {
+
+            mLayoutManager = LinearLayoutManager(context)
+            recycleView.layoutManager = mLayoutManager
 //                recycleView.addItemDecoration(StudyDecoration(context))
-                studyAdapter = StudyAdapter(context)
-                recycleView.adapter = studyAdapter
+            studyAdapter = StudyAdapter(context)
+            recycleView.adapter = studyAdapter
 
-                var datas = arrayListOf<String>()
-                it.forEach {
-                    datas.add(it)
-                }
+            studyAdapter?.setItems(it as ArrayList<VideoBean>)
 
-                studyAdapter?.setItems(datas)
-
-                val call = ItemTouchCallback(studyAdapter)
+            val call = ItemTouchCallback(studyAdapter)
 //                call.canSwipe = false
-                itemTouchHelper = ItemTouchHelper(call)
-                itemTouchHelper?.attachToRecyclerView(recycleView)
-                studyAdapter?.setOnRecyclerViewItemClickListener(onStudyItemClick())
-            }
+            itemTouchHelper = ItemTouchHelper(call)
+            itemTouchHelper?.attachToRecyclerView(recycleView)
+            studyAdapter?.setOnRecyclerViewItemClickListener(onStudyItemClick())
+
         })
+
     }
 
     override fun initData() {
 
     }
 
-    inner class onStudyItemClick : OnRecyclerViewItemClickListener<ArrayList<String>> {
+    inner class onStudyItemClick : OnRecyclerViewItemClickListener<ArrayList<VideoBean>> {
 
-        override fun onItemClick(view: View?, position: Int, data: ArrayList<String>) {
+        override fun onItemClick(view: View?, position: Int, data: ArrayList<VideoBean>) {
             ARouter.getInstance().build("/study/kotlin")
-                    .withString(KotlinActivity.TITLE_TAG, data[position])
+                    .withString(KotlinActivity.TITLE_TAG, data[position].vid)
                     .navigation()
         }
 
