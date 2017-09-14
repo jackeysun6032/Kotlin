@@ -2,13 +2,14 @@ package com.sxc.kotlin
 
 import android.annotation.SuppressLint
 import android.app.Application
+import android.support.multidex.MultiDexApplication
 import com.alibaba.android.arouter.launcher.ARouter
 import com.sxc.kotlin.utils.SPUtil
 
 /**
  * Created by sword on 2017/8/31.
  */
-class App : Application() {
+class App : MultiDexApplication() {
 
 
     override fun onCreate() {

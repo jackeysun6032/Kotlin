@@ -22,8 +22,9 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
-            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86", "arm64-v8a", "x86_64"
+            abiFilters "armeabi", "armeabi-v7a"
         }
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -79,8 +80,6 @@ dependencies {
     }
     compile 'com.dou361.ijkplayer-armv7a:jjdxm-ijkplayer-armv7a:1.0.0'
     compile 'com.dou361.ijkplayer-arm64:jjdxm-ijkplayer-arm64:1.0.0'
-    compile 'com.dou361.ijkplayer-x86_64:jjdxm-ijkplayer-x86_64:1.0.0'
-    compile 'com.dou361.ijkplayer-x86:jjdxm-ijkplayer-x86:1.0.0'
 
     implementation 'com.github.bumptech.glide:glide:4.0.0'
 
