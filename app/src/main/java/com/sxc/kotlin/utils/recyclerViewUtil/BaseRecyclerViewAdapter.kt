@@ -38,6 +38,15 @@ abstract class BaseRecyclerViewAdapter<T, VH : RecyclerView.ViewHolder>(context:
         this.notifyDataSetChanged()
     }
 
+    fun addItems(datas: ArrayList<T>) {
+
+        datas?.let {
+            this.datas.addAll(datas)
+            this.notifyDataSetChanged()
+        }
+
+    }
+
     override fun onItemMove(fromPosition: Int, toPosition: Int): Boolean {
         Collections.swap(datas, fromPosition, toPosition)
         notifyItemMoved(fromPosition, toPosition)

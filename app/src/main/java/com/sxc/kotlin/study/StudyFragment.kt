@@ -49,7 +49,7 @@ class StudyFragment : BaseFragment() {
             studyAdapter = StudyAdapter(context)
             recycleView.adapter = studyAdapter
 
-            studyAdapter?.setItems(it as ArrayList<VideoBean>)
+          //  studyAdapter?.setItems(it as ArrayList<VideoBean>)
 
             val call = ItemTouchCallback(studyAdapter)
 //                call.canSwipe = false

@@ -8,12 +8,14 @@ import android.annotation.TargetApi
 import android.arch.lifecycle.LifecycleActivity
 import android.arch.lifecycle.LifecycleRegistry
 import android.arch.lifecycle.LifecycleRegistryOwner
+import android.view.MenuItem
+import com.sxc.kotlin.R
 
 
 /**
  * Created by jackey on 2017/8/26.
  */
-abstract class BaseActivity : AppCompatActivity(),LifecycleRegistryOwner {
+abstract class BaseActivity : AppCompatActivity(), LifecycleRegistryOwner {
 
 
     private val mRegistry = LifecycleRegistry(this)
@@ -28,12 +30,14 @@ abstract class BaseActivity : AppCompatActivity(),LifecycleRegistryOwner {
         initView()
         initData()
 
-        setTranslucentStatus(isTintStatusBar())
+        setTranslucentStatus(true)
 
-        // val systemBarTintManager = SystemBarTintManager(this)
-        // systemBarTintManager.isStatusBarTintEnabled = isTintStatusBar()
-        // systemBarTintManager.setNavigationBarTintEnabled(isTintStatusBar())
-
+        if (isTintStatusBar()) {
+            val systemBarTintManager = SystemBarTintManager(this)
+            systemBarTintManager.isStatusBarTintEnabled = true
+            systemBarTintManager.setStatusBarTintResource(R.color.colorPrimaryDark)
+            systemBarTintManager.setNavigationBarTintEnabled(true)
+        }
     }
 
     @TargetApi(19)
@@ -65,4 +69,11 @@ abstract class BaseActivity : AppCompatActivity(),LifecycleRegistryOwner {
     abstract fun getLayoutId(): Int
 
     open fun isTintStatusBar(): Boolean = true
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            android.R.id.home -> finish()
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }

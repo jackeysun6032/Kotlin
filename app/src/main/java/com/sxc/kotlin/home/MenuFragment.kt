@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.View
+import com.alibaba.android.arouter.launcher.ARouter
 import com.sxc.kotlin.R
 import com.sxc.kotlin.base.BaseFragment
 import com.sxc.kotlin.home.map.MapActivity
@@ -43,8 +44,15 @@ class MenuFragment : BaseFragment(), MenuAdapter.OnRecyclerViewItemClickListener
     }
 
     override fun onItemClick(view: View?, position: Int) {
-        if (position % 4 == 0)
+        if (position % 4 == 0) {
             startActivity(Intent(activity, MapActivity::class.java))
+        } else if (position == 1) {
+            //视频分类
+            ARouter.getInstance().
+                    build("/video/category")
+                    .navigation()
+        }
+
     }
 
     override fun initData() {

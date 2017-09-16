@@ -45,10 +45,13 @@
             android:name=".login.LoginActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".study.KotlinActivity" />
+        <activity android:name=".study.KotlinActivity" android:screenOrientation="landscape"/>
         <activity
             android:name=".home.map.MapActivity"
             android:launchMode="singleTask" />
+
+        <activity android:name=".video.CategoryActivity" />
+        <activity android:name=".video.VideoListActivity" />
 
         <meta-data
             android:name="com.sxc.kotlin"

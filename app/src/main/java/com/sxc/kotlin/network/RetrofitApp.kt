@@ -13,11 +13,11 @@ object RetrofitApp {
 
     @Volatile private var retrofit: RetrofitApi? = null
 
-    fun get():RetrofitApi{
-        if(retrofit==null){
-            retrofit= synchronized<RetrofitApi?>(RetrofitApp,{
+    fun get(): RetrofitApi {
+        if (retrofit == null) {
+            retrofit = synchronized<RetrofitApi?>(RetrofitApp, {
                 Retrofit.Builder()
-                        .baseUrl("http://www.hd21.com/")
+                        .baseUrl("https://www.eee933.com")
                         .client(OkHttpClient())
                         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .addConverterFactory(ScalarsConverterFactory.create())
@@ -26,6 +26,6 @@ object RetrofitApp {
                         .create(RetrofitApi::class.java)
             })
         }
-       return retrofit!!
+        return retrofit!!
     }
 }

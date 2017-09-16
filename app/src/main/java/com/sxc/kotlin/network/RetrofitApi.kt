@@ -1,7 +1,5 @@
 package com.sxc.kotlin.network
 
-import com.sxc.kotlin.bean.VideoInfo
-import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -12,9 +10,10 @@ import retrofit2.http.Query
  */
 interface RetrofitApi {
 
-    @GET("hd/3")
-    fun htmlInfo():Single<String>
+    @GET("{htmlUrl}")
+    fun htmlInfo(@Path("htmlUrl") url: String): Single<String>
 
-    @GET("player_config_json/")
-    fun videoInfo(@Query("vid") vid:String):Observable<VideoInfo>
+    @GET("/{category}/{page}.htm")
+    fun videoInfo(@Path("category") category: String
+                  , @Path("page") page: Int): Single<String>
 }
