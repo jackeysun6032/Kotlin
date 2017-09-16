@@ -40,20 +40,17 @@ class CategoryActivity : BaseActivity() {
         val studyRepository = viewModel.get(VideoRepository::class.java)
 
         studyRepository.getCategory().observe(this@CategoryActivity, Observer<MutableList<VideoBean>> {
-
-            mLayoutManager = LinearLayoutManager(this@CategoryActivity)
-            recycleView.layoutManager = mLayoutManager
-            studyAdapter = CategoryAdapter(this@CategoryActivity)
-            recycleView.adapter = studyAdapter
-
             studyAdapter.setItems(it as ArrayList<VideoBean>)
-
-            val call = ItemTouchCallback(studyAdapter)
-            itemTouchHelper = ItemTouchHelper(call)
-            itemTouchHelper?.attachToRecyclerView(recycleView)
-            studyAdapter.setOnRecyclerViewItemClickListener(onStudyItemClick())
-
         })
+
+        mLayoutManager = LinearLayoutManager(this@CategoryActivity)
+        recycleView.layoutManager = mLayoutManager
+        studyAdapter = CategoryAdapter(this@CategoryActivity)
+        recycleView.adapter = studyAdapter
+        val call = ItemTouchCallback(studyAdapter)
+        itemTouchHelper = ItemTouchHelper(call)
+        itemTouchHelper?.attachToRecyclerView(recycleView)
+        studyAdapter.setOnRecyclerViewItemClickListener(onStudyItemClick())
     }
 
     class onStudyItemClick : OnRecyclerViewItemClickListener<ArrayList<VideoBean>> {

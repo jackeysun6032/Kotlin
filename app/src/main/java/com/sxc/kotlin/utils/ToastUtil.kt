@@ -2,6 +2,7 @@ package com.sxc.kotlin.utils
 
 import android.content.Context
 import android.widget.Toast
+import com.sxc.kotlin.App
 import com.sxc.kotlin.R
 
 /**
@@ -19,9 +20,18 @@ object ToastUtil {
         toast?.show()
     }
 
-    fun show(context: Context, msg: Int = R.string.unknown_error, length: Int = Toast.LENGTH_LONG) {
+    fun show( msg: String = "", length: Int = Toast.LENGTH_LONG) {
         if (toast == null) {
-            toast = Toast.makeText(context, msg, length)
+            toast = Toast.makeText(App.get(), msg, length)
+        } else {
+            toast?.setText(msg)
+        }
+        toast?.show()
+    }
+
+    fun show(msg: Int = R.string.unknown_error, length: Int = Toast.LENGTH_LONG) {
+        if (toast == null) {
+            toast = Toast.makeText(App.get(), msg, length)
         } else {
             toast?.setText(msg) //toast不为空时才能setText
         }
