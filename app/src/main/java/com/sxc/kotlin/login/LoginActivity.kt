@@ -25,6 +25,8 @@ class LoginActivity : BaseActivity() {
         }
     }
 
+    override fun isTintStatusBar()=false
+
     override fun initData() {
 
     }

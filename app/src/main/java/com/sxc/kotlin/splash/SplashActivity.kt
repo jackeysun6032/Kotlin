@@ -30,6 +30,8 @@ class SplashActivity : BaseActivity(), ViewPager.OnPageChangeListener {
         super.onCreate(savedInstanceState)
     }
 
+    override fun isTintStatusBar()=false
+
     override fun getLayoutId(): Int {
 
         isFirst = SPUtil.get(FIRST_USE, true) as Boolean

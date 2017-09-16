@@ -73,6 +73,8 @@ class MainActivity : BaseActivity() {
         //  supportActionBar?.title = resources.getStringArray(R.array.menu)[position]
     }
 
+    override fun isTintStatusBar()=false
+
 }
 
 
