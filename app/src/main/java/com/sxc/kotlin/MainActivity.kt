@@ -1,14 +1,8 @@
 package com.sxc.kotlin
 
 import android.annotation.SuppressLint
-import android.arch.lifecycle.LifecycleActivity
-import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
-import android.support.v7.app.AppCompatActivity
-import android.view.MenuItem
-import android.widget.RadioGroup
 import com.sxc.kotlin.base.BaseActivity
 import com.sxc.kotlin.home.HomeFragment
 import com.sxc.kotlin.home.MineFragment
@@ -44,9 +38,9 @@ class MainActivity : BaseActivity() {
     override fun getLayoutId(): Int = R.layout.activity_main
 
     private var TAG: String = MainActivity::class.java.simpleName
-    var fragments: ArrayList<Fragment> = arrayListOf()
-    var ft: FragmentTransaction? = null
-    var showingFragment: Fragment? = null
+    private var fragments: ArrayList<Fragment> = arrayListOf()
+    private var ft: FragmentTransaction? = null
+    private var showingFragment: Fragment? = null
 
 
     @SuppressLint("CommitTransaction")
@@ -72,8 +66,6 @@ class MainActivity : BaseActivity() {
     private fun changeTitle(position: Int) {
         //  supportActionBar?.title = resources.getStringArray(R.array.menu)[position]
     }
-
-    override fun isTintStatusBar()=false
 
 }
 

@@ -43,7 +43,14 @@ android {
             jniLibs.srcDirs = ['libs']
         }
     }
+
+    dexOptions {
+        incremental true
+        javaMaxHeapSize "4g"
+    }
 }
+
+
 
 kapt {
     arguments {

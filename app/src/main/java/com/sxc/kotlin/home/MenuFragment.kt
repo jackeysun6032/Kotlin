@@ -9,7 +9,7 @@ import android.view.View
 import com.alibaba.android.arouter.launcher.ARouter
 import com.sxc.kotlin.R
 import com.sxc.kotlin.base.BaseFragment
-import com.sxc.kotlin.home.map.MapActivity
+import com.sxc.kotlin.map.MapActivity
 import com.sxc.kotlin.home.repository.ClassFiyRepository
 import com.sxc.kotlin.utils.ToastUtil
 import kotlinx.android.synthetic.main.fragment_menu.*
