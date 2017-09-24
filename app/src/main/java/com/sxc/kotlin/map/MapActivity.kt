@@ -50,6 +50,8 @@ class MapActivity : BaseActivity(), AMap.OnMyLocationChangeListener, AMapLocatio
 
     }
 
+    override fun isTintStatusBar(): Boolean=false
+
     private fun setUpMap() {
 
         // 如果要设置定位的默认状态，可以在此处进行设置
@@ -89,7 +91,6 @@ class MapActivity : BaseActivity(), AMap.OnMyLocationChangeListener, AMapLocatio
     }
 
     override fun initData() {
-
     }
 
     override fun onDestroy() {

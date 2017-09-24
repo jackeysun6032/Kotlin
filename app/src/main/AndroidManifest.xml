@@ -69,8 +69,9 @@
         <activity android:name=".video.VideoListActivity" />
 
         <meta-data
-            android:name="com.sxc.kotlin"
+            android:name="com.amap.api.v2.apikey"
             android:value="@string/appKey" />
+
 
         <!-- ShareSDK的activity -->
         <activity
