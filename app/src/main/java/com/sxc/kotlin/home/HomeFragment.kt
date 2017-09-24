@@ -2,6 +2,7 @@ package com.sxc.kotlin.home
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.os.Environment
 import android.support.v4.app.FragmentTransaction
 import android.support.v4.view.ViewPager
 import android.util.Log
@@ -12,13 +13,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import com.amap.api.col.sln3.fi
+import com.amap.api.col.sln3.fw
 import com.bumptech.glide.Glide
 import com.sxc.kotlin.R
 import com.sxc.kotlin.base.BaseFragment
 import com.sxc.kotlin.home.banner.BannerHandler
 import com.sxc.kotlin.home.repository.BannerRepository
 import com.sxc.kotlin.splash.BannerAdapter
+import io.reactivex.Observable
+import io.reactivex.ObservableEmitter
+import io.reactivex.ObservableOnSubscribe
+import io.reactivex.Scheduler
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_home.*
+import java.io.*
 
 
 /**
@@ -65,6 +74,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener, ViewPager.OnPageChang
         viewPager.setOnTouchListener(this)
 
         initMenu()
+
     }
 
     override fun initData() {

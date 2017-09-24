@@ -6,7 +6,10 @@ import android.arch.lifecycle.LifecycleRegistryOwner
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.MenuItem
 import android.view.WindowManager
+import com.readystatesoftware.systembartint.SystemBarTintManager
+import com.sxc.kotlin.R
 
 
 /**
@@ -31,12 +34,14 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleRegistryOwner {
         initView()
         initData()
 
-        setTranslucentStatus(isTintStatusBar())
+        setTranslucentStatus(true)
 
-        // val systemBarTintManager = SystemBarTintManager(this)
-        // systemBarTintManager.isStatusBarTintEnabled = isTintStatusBar()
-        // systemBarTintManager.setNavigationBarTintEnabled(isTintStatusBar())
-
+        if (isTintStatusBar()) {
+            val systemBarTintManager = SystemBarTintManager(this)
+            systemBarTintManager.isStatusBarTintEnabled = true
+            systemBarTintManager.setStatusBarTintResource(R.color.colorPrimaryDark)
+            systemBarTintManager.setNavigationBarTintEnabled(true)
+        }
     }
 
     @TargetApi(19)
@@ -68,4 +73,11 @@ abstract class BaseActivity : AppCompatActivity(), LifecycleRegistryOwner {
     abstract fun getLayoutId(): Int
 
     open fun isTintStatusBar(): Boolean = true
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            android.R.id.home -> finish()
+        }
+        return super.onOptionsItemSelected(item)
+    }
 }
