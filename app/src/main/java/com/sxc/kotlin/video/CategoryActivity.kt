@@ -1,7 +1,6 @@
 package com.sxc.kotlin.video
 
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.widget.LinearLayoutManager
@@ -13,9 +12,6 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.sxc.kotlin.R
 import com.sxc.kotlin.base.BaseActivity
 import com.sxc.kotlin.bean.VideoBean
-import com.sxc.kotlin.study.KotlinActivity
-import com.sxc.kotlin.study.StudyAdapter
-import com.sxc.kotlin.study.repository.StudyRepository
 import com.sxc.kotlin.utils.recyclerViewUtil.ItemTouchCallback
 import com.sxc.kotlin.utils.recyclerViewUtil.OnRecyclerViewItemClickListener
 import com.sxc.kotlin.video.repository.VideoRepository

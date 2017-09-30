@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.sxc.kotlin.study.KotlinActivity">
+    tools:context="com.sxc.kotlin.meizhi.KotlinActivity">
 
     <include layout="@layout/toolbar" />
 

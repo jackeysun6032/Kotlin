@@ -1,7 +1,5 @@
-package com.sxc.kotlin.study
+package com.sxc.kotlin.meizhi
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,9 +9,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 
 import com.sxc.kotlin.R
 import com.sxc.kotlin.base.BaseActivity
-import com.sxc.kotlin.study.repository.StudyRepository
 import kotlinx.android.synthetic.main.toolbar.*
-import com.bumptech.glide.Glide
 import com.dou361.ijkplayer.widget.PlayStateParams
 import com.dou361.ijkplayer.widget.PlayerView
 import com.sxc.kotlin.view.MyPlayerView

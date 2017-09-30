@@ -60,7 +60,7 @@
             android:name=".login.LoginActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".study.KotlinActivity" android:screenOrientation="landscape"/>
+        <activity android:name=".meizhi.KotlinActivity" android:screenOrientation="landscape"/>
         <activity
             android:name=".map.MapActivity"
             android:launchMode="singleTask" />

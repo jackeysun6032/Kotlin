@@ -3,6 +3,7 @@ package com.sxc.kotlin
 import android.annotation.SuppressLint
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
+import com.amap.api.col.sln3.fa
 import com.sxc.kotlin.base.BaseActivity
 import com.sxc.kotlin.home.HomeFragment
 import com.sxc.kotlin.home.MineFragment
@@ -34,6 +35,8 @@ class MainActivity : BaseActivity() {
         normalFragment()
         changeTitle(0)
     }
+
+    override fun isTintStatusBar(): Boolean= false
 
     override fun getLayoutId(): Int = R.layout.activity_main
 

@@ -4,7 +4,6 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.Toolbar
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.View
@@ -13,7 +12,6 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.sxc.kotlin.R
 import com.sxc.kotlin.base.BaseActivity
 import com.sxc.kotlin.bean.VideoBean
-import com.sxc.kotlin.study.repository.StudyRepository
 import com.sxc.kotlin.utils.recyclerViewUtil.ItemTouchCallback
 import com.sxc.kotlin.utils.recyclerViewUtil.OnRecyclerViewItemClickListener
 import com.sxc.kotlin.video.repository.VideoRepository
@@ -41,7 +39,7 @@ class VideoListActivity : BaseActivity() {
 
         studyRepository = viewModel.get(VideoRepository::class.java)
 
-        studyRepository.getVideoList(url, 1).observe(this@VideoListActivity, Observer<MutableList<VideoBean>> {
+        studyRepository.getVideoList(url).observe(this@VideoListActivity, Observer<MutableList<VideoBean>> {
             studyAdapter.addItems(it as ArrayList<VideoBean>)
         })
 
@@ -54,9 +52,9 @@ class VideoListActivity : BaseActivity() {
         itemTouchHelper?.attachToRecyclerView(recycleView)
         studyAdapter.setOnRecyclerViewItemClickListener(onStudyItemClick(studyRepository))
 
-        recycleView.addOnScrollListener(object : EndLessOnScrollListener(mLayoutManager) {
-            override fun onLoadMore(currentPage: Int) {
-                studyRepository.loadVideoData(url, currentPage)
+        recycleView.addOnScrollListener(object : EndLessOnScrollListener() {
+            override fun onLoadMore() {
+                studyRepository.loadVideoData(url)
             }
         })
 

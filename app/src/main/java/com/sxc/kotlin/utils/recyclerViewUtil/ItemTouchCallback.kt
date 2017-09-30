@@ -4,7 +4,7 @@ import android.graphics.Color
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.util.Log
-import com.sxc.kotlin.study.StudyAdapter
+import com.sxc.kotlin.meizhi.StudyAdapter
 
 /**
  * Created by jackey on 2017/9/2.

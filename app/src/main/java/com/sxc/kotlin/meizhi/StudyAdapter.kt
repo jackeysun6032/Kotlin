@@ -1,4 +1,4 @@
-package com.sxc.kotlin.study
+package com.sxc.kotlin.meizhi
 
 import android.content.Context
 import android.support.v7.widget.AppCompatImageView

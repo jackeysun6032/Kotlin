@@ -65,28 +65,15 @@ class MapActivity : BaseActivity(), AMap.OnMyLocationChangeListener, AMapLocatio
     override fun onMyLocationChange(location: Location?) {
         // 定位回调监听
         if (location != null) {
-            Log.e("amap", "onMyLocationChange 定位成功， lat: " + location.latitude + " lon: " + location.longitude)
             val bundle = location.extras
             if (bundle != null) {
-//                aMap?.myLocationStyle = myLocationStyle?.myLocationType(MyLocationStyle.LOCATION_TYPE_SHOW)
                 val errorCode = bundle.getInt(MyLocationStyle.ERROR_CODE)
                 val errorInfo = bundle.getString(MyLocationStyle.ERROR_INFO)
-                // 定位类型，可能为GPS WIFI等，具体可以参考官网的定位SDK介绍
                 val locationType = bundle.getInt(MyLocationStyle.LOCATION_TYPE)
-
-                /*
-                errorCode
-                errorInfo
-                locationType
-                */
                 Log.e("amap", "定位信息， code: $errorCode errorInfo: $errorInfo locationType: $locationType")
             } else {
                 Log.e("amap", "定位信息， bundle is null ")
-
             }
-
-        } else {
-            Log.e("amap", "定位失败")
         }
     }
 
@@ -95,19 +82,16 @@ class MapActivity : BaseActivity(), AMap.OnMyLocationChangeListener, AMapLocatio
 
     override fun onDestroy() {
         super.onDestroy()
-        //在activity执行onDestroy时执行mMapView.onDestroy()，销毁地图
         mapView.onDestroy()
     }
 
     override fun onResume() {
         super.onResume()
-        //在activity执行onResume时执行mMapView.onResume ()，重新绘制加载地图
         mapView.onResume()
     }
 
     override fun onPause() {
         super.onPause()
-        //在activity执行onPause时执行mMapView.onPause ()，暂停地图的绘制
         mapView.onPause()
     }
 

@@ -1,5 +1,6 @@
 package com.sxc.kotlin.map
 
+import android.annotation.SuppressLint
 import android.util.Log
 import com.amap.api.location.AMapLocation
 import com.amap.api.location.AMapLocationClient
@@ -25,6 +26,7 @@ object APPLocation : AMapLocationListener {
     }
 
     //声明AMapLocationClient类对象
+    @SuppressLint("StaticFieldLeak")
     private var mLocationClient: AMapLocationClient? = null
     private var aMapLocation: AMapLocation? = null
 
