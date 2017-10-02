@@ -1,64 +1,75 @@
 package com.sxc.kotlin.view;
 
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 
-/**
- * Created by wnw on 16-5-26.
- */
+/** Created by wnw on 16-5-26. */
 public abstract class EndLessOnScrollListener extends RecyclerView.OnScrollListener {
 
-    //声明一个LinearLayoutManager
-    private GridLayoutManager mLinearLayoutManager;
+    boolean isSlidingToLast = false;
 
-    //当前页，从0开始    private int currentPage = 0;
-    //已经加载出来的Item的数量
-    private int totalItemCount;
-
-    //主要用来存储上一个totalItemCount
-    private int previousTotal = 0;
-
-    //在屏幕上可见的item数量
-    private int visibleItemCount;
-
-    //在屏幕可见的Item中的第一个
-    private int firstVisibleItem;
-
-    //是否正在上拉数据
-    private boolean loading = true;
-
-    private int currentPage = 1;
-
-    public EndLessOnScrollListener(GridLayoutManager linearLayoutManager) {
-        this.mLinearLayoutManager = linearLayoutManager;
-    }
 
     @Override
     public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
         super.onScrolled(recyclerView, dx, dy);
 
-        visibleItemCount = recyclerView.getChildCount();
-        totalItemCount = mLinearLayoutManager.getItemCount();
-        firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition();
-        if (loading) {
-            if (totalItemCount > previousTotal) {
-                //说明数据已经加载结束
-                loading = false;
-                previousTotal = totalItemCount;
-            }
-        }
-        //这里需要好好理解
-        if (!loading && totalItemCount - visibleItemCount <= firstVisibleItem) {
-            currentPage++;
-            onLoadMore(currentPage);
-            loading = true;
+        if (dy > 0) {
+            //大于0表示，正在向下滚动
+            isSlidingToLast = true;
+        } else {
+            //小于等于0 表示停止或向上滚动
+            isSlidingToLast = false;
         }
     }
 
-    /**
-     * 提供一个抽闲方法，在Activity中监听到这个EndLessOnScrollListener
-     * 并且实现这个方法
-     */
-    public abstract void onLoadMore(int currentPage);
+    @Override
+    public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+        RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+
+        if (layoutManager instanceof StaggeredGridLayoutManager) {
+            StaggeredGridLayoutManager manager = (StaggeredGridLayoutManager) layoutManager;
+            // 当不滚动时
+            if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                //获取最后一个完全显示的ItemPosition
+                int[] lastVisiblePositions = manager.findLastVisibleItemPositions(new int[manager.getSpanCount()]);
+                int lastVisiblePos = getMaxElem(lastVisiblePositions);
+                int totalItemCount = manager.getItemCount();
+
+                // 判断是否滚动到底部
+                if (lastVisiblePos == (totalItemCount - 1) && isSlidingToLast) {
+                    onLoadMore();
+                }
+            }
+        } else if (layoutManager instanceof LinearLayoutManager) {
+
+            LinearLayoutManager manager = (LinearLayoutManager) layoutManager;
+            // 当不滚动时
+            if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                //获取最后一个完全显示的ItemPosition
+                int lastVisiblePos = manager.findLastVisibleItemPosition();
+                int totalItemCount = manager.getItemCount();
+
+                // 判断是否滚动到底部
+                if (lastVisiblePos == (totalItemCount - 1) && isSlidingToLast) {
+                    onLoadMore();
+                }
+            }
+        }
+
+    }
+
+
+    private int getMaxElem(int[] arr) {
+        int size = arr.length;
+        int maxVal = Integer.MIN_VALUE;
+        for (int i = 0; i < size; i++) {
+            if (arr[i] > maxVal)
+                maxVal = arr[i];
+        }
+        return maxVal;
+    }
+
+
+    public abstract void onLoadMore();
 }

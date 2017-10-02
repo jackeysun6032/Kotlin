@@ -2,6 +2,7 @@ package com.sxc.kotlin.home
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.os.Environment
 import android.support.v4.app.FragmentTransaction
 import android.support.v4.view.ViewPager
 import android.util.Log
@@ -19,6 +20,7 @@ import com.sxc.kotlin.home.banner.BannerHandler
 import com.sxc.kotlin.home.repository.BannerRepository
 import com.sxc.kotlin.splash.BannerAdapter
 import kotlinx.android.synthetic.main.fragment_home.*
+import java.io.*
 
 
 /**
@@ -65,6 +67,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener, ViewPager.OnPageChang
         viewPager.setOnTouchListener(this)
 
         initMenu()
+
     }
 
     override fun initData() {

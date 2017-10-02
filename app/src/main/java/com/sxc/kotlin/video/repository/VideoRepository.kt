@@ -22,6 +22,8 @@ class VideoRepository : ViewModel() {
 
     private val videoInfo = MutableLiveData<VideoBean>()
 
+    var page = 1
+
     fun getCategory(): LiveData<MutableList<VideoBean>> {
         RetrofitApp.get()
                 .htmlInfo("/htm/sp.htm")
@@ -50,12 +52,12 @@ class VideoRepository : ViewModel() {
         return htmlData
     }
 
-    fun getVideoList(category: String, page: Int): LiveData<MutableList<VideoBean>> {
-        loadVideoData(category, page)
+    fun getVideoList(category: String): LiveData<MutableList<VideoBean>> {
+        loadVideoData(category)
         return htmlData
     }
 
-    fun loadVideoData(category: String, page: Int) {
+    fun loadVideoData(category: String) {
         RetrofitApp.get()
                 .videoInfo(category, page)
                 .subscribeOn(Schedulers.io())
@@ -63,9 +65,10 @@ class VideoRepository : ViewModel() {
 
                     val result = Jsoup.parse(it)
                     val mainArea = result.select("div.mainArea.px17")
-                    val category = mainArea.select("ul.movieList").select("li")
 
-                    return@flatMap Observable.fromIterable(category)
+                    val cate_gory = mainArea.select("ul.movieList").select("li")
+
+                    return@flatMap Observable.fromIterable(cate_gory)
                             .map {
                                 val root = it.select("a")
                                 val url = root.attr("href")
@@ -80,7 +83,11 @@ class VideoRepository : ViewModel() {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     htmlData.value = it
+                    page++
                 }, {
+                    if (page > 1) {
+                        page--
+                    }
                     it.printStackTrace()
                 })
     }
@@ -100,18 +107,18 @@ class VideoRepository : ViewModel() {
                     val element: Element = list.filter { it.text().equals("手机版播放") }[0]
                     return@map VideoBean(element.attr("href"))
                 }.flatMap {
-                    RetrofitApp.get()
-                            .htmlInfo(it.url)
-                            .map {
-                                System.out.println(it)
-                                val result = Jsoup.parse(it)
-                                val aList = result.select("script")[3].
-                                        childNode(0).outerHtml().split(";")
-                                val resData= aList.filter { it.contains("playurl") }[0]
-                               val videoUrl = resData?.split("+")[1]?.replace("'","")
-                                return@map VideoBean("http://925hh.com"+videoUrl)
-                            }
-                }.observeOn(AndroidSchedulers.mainThread())
+            RetrofitApp.get()
+                    .htmlInfo(it.url)
+                    .map {
+                        System.out.println(it)
+                        val result = Jsoup.parse(it)
+                        val aList = result.select("script")[3].
+                                childNode(0).outerHtml().split(";")
+                        val resData = aList.filter { it.contains("playurl") }[0]
+                        val videoUrl = resData.split("+")[1].replace("'", "")
+                        return@map VideoBean("http://925hh.com" + videoUrl)
+                    }
+        }.observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
                     videoInfo.value = it
                 }, {

@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
 android {
@@ -15,7 +16,7 @@ android {
     buildToolsVersion "26.0.1"
     defaultConfig {
         applicationId "com.sxc.kotlin"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 22
         versionCode 2
         versionName "kotlin_1.1"
@@ -32,6 +33,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
         }
+        debug {
+            debuggable true
+            signingConfig signingConfigs.config
+            minifyEnabled false
+        }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -45,7 +51,6 @@ android {
     }
 
     dexOptions {
-        incremental true
         javaMaxHeapSize "4g"
     }
 }
@@ -71,32 +76,27 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     implementation 'com.android.support:cardview-v7:' + support_version
     implementation 'de.hdodenhof:circleimageview:2.1.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
     implementation 'io.reactivex.rxjava2:rxjava:2.1.3'
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
-
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.squareup.retrofit2:converter-scalars:2.3.0'
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
-
     implementation 'org.jsoup:jsoup:1.9.2'
-
     implementation('com.dou361.ijkplayer:jjdxm-ijkplayer:1.0.6') {
         exclude group: 'com.android.support', module: 'appcompat-v7'
     }
     implementation 'com.dou361.ijkplayer-armv7a:jjdxm-ijkplayer-armv7a:1.0.0'
     implementation 'com.dou361.ijkplayer-arm64:jjdxm-ijkplayer-arm64:1.0.0'
-
-    implementation 'com.github.bumptech.glide:glide:4.0.0'
-
-    kapt 'com.github.bumptech.glide:compiler:4.0.0'
+    implementation 'com.github.bumptech.glide:glide:4.1.1'
+    kapt 'com.github.bumptech.glide:compiler:4.1.1'
     implementation 'com.zhihu.android:matisse:0.4.3'
     implementation 'android.arch.lifecycle:runtime:1.0.0'
     implementation 'android.arch.lifecycle:extensions:1.0.0-alpha9-1'
     kapt "android.arch.lifecycle:compiler:1.0.0-alpha9-1"
-
     implementation 'com.alibaba:arouter-api:1.2.2'
     kapt 'com.alibaba:arouter-compiler:1.1.3'
     implementation 'com.readystatesoftware.systembartint:systembartint:1.0.3'
+    implementation project(':library')
 }

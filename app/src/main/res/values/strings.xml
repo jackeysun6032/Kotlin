@@ -5,6 +5,7 @@
     <string name="prompt_account">账号</string>
     <string name="prompt_password">密码</string>
     <string name="action_sign_in">登 录</string>
+    <string name="action_register">注 册</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
@@ -51,7 +52,7 @@
         <item>图书</item>
     </array>
 
-    <string name="appKey">3c056765a2527b48733d23f730767924</string>
+    <string name="appKey">77d2536aed8bdedbaec0ebd9a4f0c159</string>
 
     <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="large_text">
@@ -144,4 +145,5 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_register">RegisterActivity</string>
 </resources>

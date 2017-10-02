@@ -1,5 +1,7 @@
 package com.sxc.kotlin.network
 
+import com.sxc.kotlin.bean.meizhi.GankMeiZhi
+import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -16,4 +18,7 @@ interface RetrofitApi {
     @GET("/{category}/{page}.htm")
     fun videoInfo(@Path("category") category: String
                   , @Path("page") page: Int): Single<String>
+
+    @GET("http://gank.io/api/data/福利/10/{page}")
+    fun getGankMeiZhi(@Path("page") page: Int): Observable<GankMeiZhi>
 }

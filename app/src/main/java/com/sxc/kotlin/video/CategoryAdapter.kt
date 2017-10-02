@@ -22,9 +22,9 @@ class CategoryAdapter(context: Context) : BaseRecyclerViewAdapter<VideoBean, Cat
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         super.onBindViewHolder(holder, position)
         if (holder is ViewHolder) {
-            val date=datas?.get(position).duration
+            val date=datas[position].duration
             holder.date?.text = date
-            Glide.with(context).load(datas?.get(position).img).into(holder.imageView)
+            Glide.with(context).load(datas[position].img).into(holder.imageView)
         }
     }
 

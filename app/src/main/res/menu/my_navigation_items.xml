@@ -7,7 +7,7 @@
     <item
         android:id="@+id/action_study"
         android:icon="@drawable/ic_study_nor"
-        android:title="学习" />
+        android:title="妹汁" />
     <item
         android:id="@+id/action_mine"
         android:icon="@drawable/ic_mine_nor"
