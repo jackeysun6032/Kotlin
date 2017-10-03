@@ -52,13 +52,6 @@ class LoginActivity : BaseActivity() {
             authQQ()
         }
 
-<<<<<<< HEAD
-        register.setOnClickListener {
-
-        }
-
-=======
->>>>>>> origin/dev-beta1
     }
 
     private fun startMain() {
