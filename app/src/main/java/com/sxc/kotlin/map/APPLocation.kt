@@ -28,7 +28,7 @@ object APPLocation : AMapLocationListener {
     //声明AMapLocationClient类对象
     @SuppressLint("StaticFieldLeak")
     private var mLocationClient: AMapLocationClient? = null
-    private var aMapLocation: AMapLocation? = null
+    public var aMapLocation: AMapLocation? = null
 
     fun initLocation() {
         //初始化定位

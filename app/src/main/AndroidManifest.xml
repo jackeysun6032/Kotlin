@@ -137,6 +137,7 @@
         <service android:name="com.amap.api.location.APSService" />
 
         <activity android:name=".register.RegisterActivity" />
+        <activity android:name=".map.SearchActivity"/>
     </application>
 
 </manifest>

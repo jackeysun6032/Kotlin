@@ -1,8 +1,10 @@
 package com.sxc.kotlin.map
 
+import android.content.Intent
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import com.amap.api.location.AMapLocation
 import com.amap.api.location.AMapLocationListener
 import com.amap.api.maps.AMap
@@ -17,8 +19,7 @@ import kotlinx.android.synthetic.main.activity_map.*
 /**
  * Created by jackey on 2017/9/10.
  */
-class MapActivity : BaseActivity(), AMap.OnMyLocationChangeListener {
-
+class MapActivity : BaseActivity(), AMap.OnMyLocationChangeListener, View.OnClickListener {
 
     private val TAG: String = MapActivity::class.java.simpleName
 
@@ -48,9 +49,9 @@ class MapActivity : BaseActivity(), AMap.OnMyLocationChangeListener {
         //设置SDK 自带定位消息监听
         aMap?.setOnMyLocationChangeListener(this)
 
-    }
+        search_action.setOnClickListener(this)
 
-    override fun isTintStatusBar(): Boolean = false
+    }
 
     private fun setUpMap() {
 
@@ -71,6 +72,10 @@ class MapActivity : BaseActivity(), AMap.OnMyLocationChangeListener {
 
     override fun onMyLocationChange(p0: Location?) {
         aMap?.animateCamera(CameraUpdateFactory.zoomTo(16f))
+    }
+
+    override fun onClick(p0: View?) {
+        startActivity(Intent(this, SearchActivity::class.java))
     }
 
     override fun initData() {
