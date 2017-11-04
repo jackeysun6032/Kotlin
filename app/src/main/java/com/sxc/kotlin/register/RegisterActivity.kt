@@ -1,12 +1,8 @@
 package com.sxc.kotlin.register
 
-import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity
 import com.sxc.kotlin.R
 import com.sxc.kotlin.base.BaseActivity
 
-import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : BaseActivity() {
     override fun initData() {

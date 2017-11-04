@@ -1,19 +1,23 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
+
 buildscript {
-    ext.kotlin_version = '1.1.51'
+    //ext.kotlin_version = '1.1.51'
+    ext.kotlin_version = '1.2.0-beta-88'
+    ext.objectboxVersion = '1.2.0-RC'
+
     repositories {
         jcenter()
         mavenCentral()
         google()
+        maven { url 'http://dl.bintray.com/kotlin/kotlin-eap-1.2' }
         maven { url 'https://jitpack.io' }
+        maven { url 'http://objectbox.net/beta-repo/' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-beta7'
+        classpath 'com.android.tools.build:gradle:3.0.0'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath "io.objectbox:objectbox-gradle-plugin:$objectboxVersion"
     }
 }
 
@@ -22,7 +26,9 @@ allprojects {
         jcenter()
         mavenCentral()
         google()
+        maven { url 'http://dl.bintray.com/kotlin/kotlin-eap-1.2' }
         maven { url 'https://jitpack.io' }
+        maven { url 'http://objectbox.net/beta-repo/' }
     }
 }
 

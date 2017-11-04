@@ -1,0 +1,54 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:3800742809658750795",
+      "lastPropertyId": "7:2162367872661863066",
+      "name": "NewsListBean",
+      "properties": [
+        {
+          "id": "1:568399839321404164",
+          "name": "id"
+        },
+        {
+          "id": "2:3622326182634867222",
+          "name": "dId"
+        },
+        {
+          "id": "3:4669355486030674059",
+          "name": "ctime"
+        },
+        {
+          "id": "4:1239046791428601277",
+          "name": "title"
+        },
+        {
+          "id": "5:2106741905340806266",
+          "name": "description"
+        },
+        {
+          "id": "6:758363650632783763",
+          "name": "picUrl"
+        },
+        {
+          "id": "7:2162367872661863066",
+          "name": "url"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "1:3800742809658750795",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 4,
+  "modelVersionParserMinimum": 4,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [],
+  "retiredRelationUids": [],
+  "version": 1
+}

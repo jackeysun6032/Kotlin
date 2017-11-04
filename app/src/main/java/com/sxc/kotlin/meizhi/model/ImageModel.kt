@@ -3,7 +3,6 @@ package com.sxc.kotlin.meizhi.model
 import android.support.annotation.LayoutRes
 import android.util.SparseArray
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -14,14 +13,13 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.sword.library.multitype.base.ViewModel
 import com.sxc.kotlin.R
 import com.sxc.kotlin.base.GlideApp
-import com.sxc.kotlin.bean.meizhi.NewslistBean
+import com.sxc.kotlin.bean.meizhi.NewsListBean
 import com.sxc.kotlin.utils.DensityUtil
-import java.util.*
 
 /**
  * Created by sword on 2017/9/30.
  */
-class ImageModel(var newslistBean: NewslistBean) : ViewModel() {
+class ImageModel(var newslistBean: NewsListBean) : ViewModel() {
 
 
     override fun viewTypeId(): Int = viewTypeId
@@ -43,7 +41,7 @@ class ImageModel(var newslistBean: NewslistBean) : ViewModel() {
 
         private val indexMap = SparseArray<Float>()
 
-        override fun createViewHodler(parent: ViewGroup, inflater: LayoutInflater) = DataHolder(viewTypeId, inflater, parent)
+        override fun createViewHolder(parent: ViewGroup, inflater: LayoutInflater) = DataHolder(viewTypeId, inflater, parent)
 
 
         override fun onBind(holder: DataHolder, entity: ImageModel) {

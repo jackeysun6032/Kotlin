@@ -3,6 +3,7 @@ package com.sxc.kotlin
 import android.annotation.SuppressLint
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
+import android.widget.Toast
 import com.amap.api.col.sln3.fa
 import com.sxc.kotlin.base.BaseActivity
 import com.sxc.kotlin.home.HomeFragment

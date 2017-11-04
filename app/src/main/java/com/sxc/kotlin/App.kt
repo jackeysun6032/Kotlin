@@ -5,14 +5,19 @@ import android.app.Application
 import android.support.multidex.MultiDexApplication
 import com.alibaba.android.arouter.launcher.ARouter
 import com.mob.MobSDK
+import com.sxc.kotlin.bean.meizhi.MyObjectBox
 import com.sxc.kotlin.map.APPLocation
 import com.sxc.kotlin.utils.SPUtil
+import io.objectbox.BoxStore
 
-/**
- * Created by sword on 2017/8/31.
- */
+/***
+* Created by sword on 2017/8/31.
+*/
 class App : MultiDexApplication() {
 
+    private lateinit var boxStore: BoxStore
+
+    fun getBoxStore()=boxStore
 
     override fun onCreate() {
         super.onCreate()
@@ -27,14 +32,16 @@ class App : MultiDexApplication() {
         }
         ARouter.init(this)
         MobSDK.init(this,"210901bebdc6a" , "c718f0fbde990d39ff554a6e50a836e5")
+
+        boxStore = MyObjectBox.builder().androidContext(this).build()
     }
 
     companion object {
 
         @SuppressLint("StaticFieldLeak")
-        lateinit var instance: Application
+        lateinit var instance: App
 
         @JvmStatic
-        fun get(): Application = instance
+        fun get(): App = instance
     }
 }

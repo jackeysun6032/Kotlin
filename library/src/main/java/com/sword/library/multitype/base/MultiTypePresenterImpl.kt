@@ -26,9 +26,9 @@ class MultiTypePresenterImpl private constructor(builder: MultiTypePresenterImpl
         holders = builder.holders
     }
 
-    override fun createViewHolder(inflater: LayoutInflater, group: ViewGroup, type: Int)=holders.get(type).createViewHodler(group, inflater)
+    override fun createViewHolder(inflater: LayoutInflater, group: ViewGroup, type: Int)=holders.get(type).createViewHolder(group, inflater)
 
-    override fun bindViewHolder(holder: BaseViewHolder, position: Int)= holders.get( viewModels!![position].viewTypeId()).onBind(holder,  viewModels!![position])
+    override fun bindViewHolder(holder: BaseViewHolder, position: Int)= holders.get( viewModels!![position].viewTypeId()).onBind(holder,  viewModels[position])
 
     override fun unBind(holder: BaseViewHolder)= holder.unBind()
 

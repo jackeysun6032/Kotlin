@@ -20,7 +20,7 @@ abstract class ViewHolderPresenter<in T,in V>{
      * *
      * @return
      */
-   abstract fun createViewHodler(parent: ViewGroup, inflater: LayoutInflater): BaseViewHolder
+   abstract fun createViewHolder(parent: ViewGroup, inflater: LayoutInflater): BaseViewHolder
 
     abstract fun  onBind(holder: T, entity: V)
 
@@ -33,7 +33,8 @@ abstract class ViewHolderPresenter<in T,in V>{
 
     companion object {
 
-        fun cast(presenter: Any)= presenter as ViewHolderPresenter<Any,Any>
+        fun cast(presenter: Any):ViewHolderPresenter<Any, Any> =
+                presenter as ViewHolderPresenter<Any, Any>
 
     }
 }

@@ -13,7 +13,7 @@ import com.sword.library.multitype.base.ViewModel
 import com.sxc.kotlin.R
 import com.sxc.kotlin.base.BaseFragment
 import com.sxc.kotlin.bean.VideoBean
-import com.sxc.kotlin.bean.meizhi.NewslistBean
+import com.sxc.kotlin.bean.meizhi.NewsListBean
 import com.sxc.kotlin.meizhi.KotlinActivity
 import com.sxc.kotlin.meizhi.model.ImageModel
 import com.sxc.kotlin.meizhi.repository.StudyRepository
@@ -42,7 +42,7 @@ class StudyFragment : BaseFragment() {
         val studyRepository = viewModel.get(StudyRepository::class.java)
 
 
-        studyRepository.registerMeiZhi().observe(this@StudyFragment, Observer<List<NewslistBean>> {
+        studyRepository.registerMeiZhi().observe(this@StudyFragment, Observer<List<NewsListBean>> {
             val startPos = mData.size
             it?.forEach {
                 mData.add(ImageModel(it))
