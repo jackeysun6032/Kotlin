@@ -17,7 +17,7 @@ object RetrofitApp {
         if (retrofit == null) {
             retrofit = synchronized<RetrofitApi?>(RetrofitApp, {
                 Retrofit.Builder()
-                        .baseUrl("http://www.eee586.com")
+                        .baseUrl("https://www.eee586.com")
                         .client(OkHttpClient())
                         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .addConverterFactory(ScalarsConverterFactory.create())

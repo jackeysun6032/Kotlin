@@ -7,6 +7,7 @@ import com.sxc.kotlin.App
 import com.sxc.kotlin.bean.meizhi.NewsListBean
 import com.sxc.kotlin.network.RetrofitApp
 import com.sxc.kotlin.utils.NetworkUtils
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -21,6 +22,8 @@ class StudyRepository : ViewModel() {
 
     var box = App.get().getBoxStore().boxFor(NewsListBean::class.java)
 
+    var isLoad = false
+
     fun registerMeiZhi(): MutableLiveData<List<NewsListBean>> {
         loadMeiZhi()
         return studyDatas
@@ -28,7 +31,7 @@ class StudyRepository : ViewModel() {
 
     fun loadMeiZhi() {
 
-        if(NetworkUtils.isNetworkReachable){
+        if (NetworkUtils.isNetworkReachable) {
             RetrofitApp.get().
                     getGankMeiZhi(page)
                     .subscribeOn(Schedulers.io())
@@ -37,15 +40,27 @@ class StudyRepository : ViewModel() {
                     .subscribe({
                         studyDatas.value = it
                         page++
-
                         box.put(it)
                     }, {
                         if (page > 1) {
                             page--
                         }
                     })
-        }else{
-
+        } else {
+            if (isLoad) {
+                return
+            }
+            Observable.just("")
+                    .map { box.all }
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({
+                        studyDatas.value = it
+                        isLoad = true
+                    }, {
+                        isLoad = false
+                        it.printStackTrace()
+                    })
         }
 
     }

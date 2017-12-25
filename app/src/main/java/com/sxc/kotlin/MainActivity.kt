@@ -1,10 +1,12 @@
 package com.sxc.kotlin
 
 import android.annotation.SuppressLint
+import android.os.Handler
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.widget.Toast
 import com.amap.api.col.sln3.fa
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import com.sxc.kotlin.base.BaseActivity
 import com.sxc.kotlin.home.HomeFragment
 import com.sxc.kotlin.home.MineFragment
@@ -37,7 +39,7 @@ class MainActivity : BaseActivity() {
         changeTitle(0)
     }
 
-    override fun isTintStatusBar(): Boolean= false
+    override fun isTintStatusBar(): Boolean = false
 
     override fun getLayoutId(): Int = R.layout.activity_main
 
