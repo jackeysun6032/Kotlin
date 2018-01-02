@@ -1,17 +1,19 @@
 package com.sxc.kotlin
 
 import android.annotation.SuppressLint
-import android.app.Application
 import android.content.Context
 import android.support.multidex.MultiDex
 import android.support.multidex.MultiDexApplication
-import cn.bmob.v3.Bmob
 import com.alibaba.android.arouter.launcher.ARouter
 import com.mob.MobSDK
 import com.sxc.kotlin.bean.meizhi.MyObjectBox
 import com.sxc.kotlin.map.APPLocation
 import com.sxc.kotlin.utils.SPUtil
 import io.objectbox.BoxStore
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.Response
+import java.io.IOException
 
 /***
 * Created by sword on 2017/8/31.
@@ -35,7 +37,6 @@ class App : MultiDexApplication() {
         }
         ARouter.init(this)
         MobSDK.init(this,"210901bebdc6a" , "c718f0fbde990d39ff554a6e50a836e5")
-        Bmob.initialize(this, "faf95a1df63626b8ba61563b1b288cdf")
 
         boxStore = MyObjectBox.builder().androidContext(this).build()
     }
@@ -47,10 +48,10 @@ class App : MultiDexApplication() {
 
     companion object {
 
-        @SuppressLint("StaticFieldLeak")
         lateinit var instance: App
 
         @JvmStatic
         fun get(): App = instance
+
     }
 }

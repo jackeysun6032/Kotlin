@@ -108,7 +108,6 @@ dependencies {
     implementation "io.objectbox:objectbox-kotlin:$objectboxVersion"
     kapt "io.objectbox:objectbox-processor:$objectboxVersion"
     compile 'com.qmuiteam:qmui:1.0.4'
-    compile 'cn.bmob.android:bmob-sdk:3.4.6'
     compile 'com.android.support:multidex:1.0.2'
     compile 'com.google.code.gson:gson:2.8.2'
 }

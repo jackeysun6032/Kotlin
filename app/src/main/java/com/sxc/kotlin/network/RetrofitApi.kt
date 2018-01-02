@@ -22,4 +22,6 @@ interface RetrofitApi {
 
     @GET("http://gank.io/api/data/福利/10/{page}")
     fun getGankMeiZhi(@Path("page") page: Int): Observable<GankMeiZhi>
+
+
 }

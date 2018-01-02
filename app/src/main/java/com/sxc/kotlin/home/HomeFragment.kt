@@ -13,14 +13,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.RelativeLayout
+import com.amap.api.col.sln3.v
 import com.bumptech.glide.Glide
 import com.sxc.kotlin.R
 import com.sxc.kotlin.base.BaseFragment
 import com.sxc.kotlin.home.banner.BannerHandler
 import com.sxc.kotlin.home.repository.BannerRepository
+import com.sxc.kotlin.network.BMobApi
+import com.sxc.kotlin.network.RetrofitApp
 import com.sxc.kotlin.splash.BannerAdapter
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_home.*
+import retrofit2.Retrofit
 import java.io.*
+import kotlin.math.log
 
 
 /**
@@ -67,6 +75,14 @@ class HomeFragment : BaseFragment(), View.OnClickListener, ViewPager.OnPageChang
         viewPager.setOnTouchListener(this)
 
         initMenu()
+
+      RetrofitApp.getBmob().search(BMobApi.TABLES_USER, "ISsN999A")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ v ->
+                    Log.i("HomeFragment", v)
+                }, { e -> Log.e("HomeFragment", e.message) })
+
 
     }
 
