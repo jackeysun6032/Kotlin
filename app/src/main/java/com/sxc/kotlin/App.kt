@@ -2,7 +2,10 @@ package com.sxc.kotlin
 
 import android.annotation.SuppressLint
 import android.app.Application
+import android.content.Context
+import android.support.multidex.MultiDex
 import android.support.multidex.MultiDexApplication
+import cn.bmob.v3.Bmob
 import com.alibaba.android.arouter.launcher.ARouter
 import com.mob.MobSDK
 import com.sxc.kotlin.bean.meizhi.MyObjectBox
@@ -32,8 +35,14 @@ class App : MultiDexApplication() {
         }
         ARouter.init(this)
         MobSDK.init(this,"210901bebdc6a" , "c718f0fbde990d39ff554a6e50a836e5")
+        Bmob.initialize(this, "faf95a1df63626b8ba61563b1b288cdf")
 
         boxStore = MyObjectBox.builder().androidContext(this).build()
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+        MultiDex.install(this)
     }
 
     companion object {

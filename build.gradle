@@ -2,9 +2,8 @@
 
 
 buildscript {
-    //ext.kotlin_version = '1.1.51'
-    ext.kotlin_version = '1.1.60'
-    ext.objectboxVersion = '1.2.0-RC'
+    ext.kotlin_version = '1.2.0'
+    ext.objectboxVersion = '1.2.0'
 
     repositories {
         jcenter()
@@ -13,13 +12,11 @@ buildscript {
         maven { url 'http://dl.bintray.com/kotlin/kotlin-eap-1.2' }
         maven { url 'https://jitpack.io' }
         maven { url 'http://objectbox.net/beta-repo/' }
-        maven { url  uri('./repo') }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.1.0-alpha04'
+        classpath 'com.android.tools.build:gradle:3.1.0-alpha06'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.objectbox:objectbox-gradle-plugin:$objectboxVersion"
-        classpath 'com.gradle.plugin:plugin:1.0.0'
     }
 }
 
@@ -31,7 +28,7 @@ allprojects {
         maven { url 'http://dl.bintray.com/kotlin/kotlin-eap-1.2' }
         maven { url 'https://jitpack.io' }
         maven { url 'http://objectbox.net/beta-repo/' }
-        maven { url  uri('./repo') }
+        maven { url "https://raw.github.com/bmob/bmob-android-sdk/master" }
     }
 }
 

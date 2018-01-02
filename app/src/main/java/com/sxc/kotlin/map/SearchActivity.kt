@@ -19,6 +19,8 @@ import com.sxc.kotlin.utils.ToastUtil
 import com.sxc.kotlin.utils.recyclerViewUtil.OnRecyclerViewItemClickListener
 import kotlinx.android.synthetic.main.activity_search.*
 
+
+
 class SearchActivity : BaseActivity(), TextWatcher, Inputtips.InputtipsListener, OnRecyclerViewItemClickListener<ArrayList<Tip>>, View.OnClickListener {
 
     private var city: String? = null
@@ -77,7 +79,9 @@ class SearchActivity : BaseActivity(), TextWatcher, Inputtips.InputtipsListener,
     }
 
     private fun getHistorySearchList(): ArrayList<Tip>? {
-        return Gson().fromJson<ArrayList<Tip>>(getHistorySearch(), object : TypeToken<ArrayList<Tip>>() {}.type)
+        return Gson().fromJson<ArrayList<Tip>>(getHistorySearch(),
+                TypeToken.getParameterized(ArrayList::class.java,
+                        Tip::class.java).type)
     }
 
     private fun getHistorySearch(): String?{

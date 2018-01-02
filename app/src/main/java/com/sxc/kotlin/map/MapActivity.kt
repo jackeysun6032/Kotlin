@@ -119,7 +119,7 @@ class MapActivity : BaseActivity(), AMap.OnMyLocationChangeListener, View.OnClic
             when (requestCode) {
                 SEARCH_CONTENT_CODE -> {
                     val searchContent: String? = data?.extras?.getString(SEARCH_CONTENT)
-                    val searchBean: Tip? = Gson().fromJson(searchContent, object : TypeToken<Tip>() {}.type)
+                    val searchBean: Tip? = Gson().fromJson(searchContent, Tip::class.java)
                     search_content.text = searchBean?.name
                     val latLng = LatLng(searchBean?.point?.latitude!!, searchBean?.point?.longitude!!)
 
