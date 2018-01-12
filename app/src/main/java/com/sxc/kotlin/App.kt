@@ -32,8 +32,8 @@ class App : MultiDexApplication() {
         APPLocation.initLocation()
 
         if (BuildConfig.DEBUG) {
-            ARouter.openLog()    // 打印日志
-            ARouter.openDebug()   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
+            ARouter.openLog()
+            ARouter.openDebug()
         }
         ARouter.init(this)
         MobSDK.init(this,"210901bebdc6a" , "c718f0fbde990d39ff554a6e50a836e5")

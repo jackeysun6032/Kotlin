@@ -76,7 +76,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener, ViewPager.OnPageChang
 
         initMenu()
 
-      RetrofitApp.getBmob().search(BMobApi.TABLES_USER, "ISsN999A")
+        RetrofitApp.getBmob().search(BMobApi.TABLES_USER, "ISsN999A")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ v ->

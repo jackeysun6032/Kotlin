@@ -27,7 +27,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
-            abiFilters "armeabi-v7a"
+            abiFilters "armeabi-v7a","x86"
         }
         multiDexEnabled true
     }
@@ -107,9 +107,9 @@ dependencies {
     implementation "io.objectbox:objectbox-android:$objectboxVersion"
     implementation "io.objectbox:objectbox-kotlin:$objectboxVersion"
     kapt "io.objectbox:objectbox-processor:$objectboxVersion"
-    compile 'com.qmuiteam:qmui:1.0.4'
-    compile 'com.android.support:multidex:1.0.2'
-    compile 'com.google.code.gson:gson:2.8.2'
+    implementation 'com.qmuiteam:qmui:1.0.4'
+    implementation 'com.android.support:multidex:1.0.2'
+    implementation 'com.google.code.gson:gson:2.8.2'
 }
 
 gradle.beforeProject {
