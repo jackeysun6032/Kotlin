@@ -7,6 +7,4 @@
 .externalNativeBuild
 
 local.properties
-library/libs/
-library/src/main/res/drawable/
 
