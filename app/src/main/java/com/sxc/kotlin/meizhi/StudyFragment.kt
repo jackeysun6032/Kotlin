@@ -28,19 +28,19 @@ class StudyFragment : BaseFragment() {
 
     lateinit var adapter: MultiTypeAdapter
 
-
     private lateinit var viewModel: ViewModelProvider
 
     private val mData: MutableList<ViewModel> = ArrayList()
 
     override fun getLayoutId(): Int = R.layout.fragment_study
 
+    lateinit var studyRepository: StudyRepository
+
     override fun initView() {
 
         viewModel = ViewModelProviders.of(this)
 
-        val studyRepository = viewModel.get(StudyRepository::class.java)
-
+        studyRepository = viewModel.get(StudyRepository::class.java)
 
         studyRepository.registerMeiZhi().observe(this@StudyFragment, Observer<List<NewsListBean>> {
             val startPos = mData.size
@@ -73,6 +73,11 @@ class StudyFragment : BaseFragment() {
 
     override fun initData() {
 
+    }
+
+    override fun onDestroy() {
+        studyRepository.onDestroy()
+        super.onDestroy()
     }
 
     inner class onStudyItemClick : OnRecyclerViewItemClickListener<ArrayList<VideoBean>> {

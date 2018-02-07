@@ -9,6 +9,7 @@ import com.sxc.kotlin.network.RetrofitApp
 import com.sxc.kotlin.utils.NetworkUtils
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 /***
@@ -24,6 +25,8 @@ class StudyRepository : ViewModel() {
 
     var isLoad = false
 
+    val _disps = CompositeDisposable()
+
     fun registerMeiZhi(): MutableLiveData<List<NewsListBean>> {
         loadMeiZhi()
         return studyDatas
@@ -32,8 +35,7 @@ class StudyRepository : ViewModel() {
     fun loadMeiZhi() {
 
         if (NetworkUtils.isNetworkReachable) {
-            RetrofitApp.get().
-                    getGankMeiZhi(page)
+            val disp = RetrofitApp.get().getGankMeiZhi(page)
                     .subscribeOn(Schedulers.io())
                     .map { it.transform() }
                     .observeOn(AndroidSchedulers.mainThread())
@@ -42,15 +44,14 @@ class StudyRepository : ViewModel() {
                         page++
                         box.put(it)
                     }, {
-                        if (page > 1) {
-                            page--
-                        }
+                        it.printStackTrace()
                     })
+            _disps.add(disp)
         } else {
             if (isLoad) {
                 return
             }
-            Observable.just("")
+            val disp = Observable.just("")
                     .map { box.all }
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -61,8 +62,13 @@ class StudyRepository : ViewModel() {
                         isLoad = false
                         it.printStackTrace()
                     })
+            _disps.add(disp)
         }
 
+    }
+
+    fun onDestroy() {
+        _disps.clear()
     }
 
 }
