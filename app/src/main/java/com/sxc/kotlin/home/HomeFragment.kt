@@ -62,7 +62,7 @@ class HomeFragment : BaseFragment(), View.OnClickListener, ViewPager.OnPageChang
                 Glide.with(this@HomeFragment).load(it).into(imgView)
                 imgViews.add(imgView)
             }
-            bannerAdapter = BannerAdapter(context, imgViews)
+            bannerAdapter = BannerAdapter(context!!, imgViews)
             viewPager.adapter = bannerAdapter
 
             initPoints(0)
@@ -94,9 +94,9 @@ class HomeFragment : BaseFragment(), View.OnClickListener, ViewPager.OnPageChang
      * 广告栏下的菜单
      */
     private fun initMenu() {
-        val ft: FragmentTransaction = activity.supportFragmentManager.beginTransaction()
-        ft.replace(R.id.container_home_menu, MenuFragment())
-        ft.commit()
+        val ft = activity?.supportFragmentManager?.beginTransaction()
+        ft?.replace(R.id.container_home_menu, MenuFragment())
+        ft?.commit()
     }
 
 

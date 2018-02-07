@@ -33,7 +33,7 @@ abstract class ViewHolderPresenter<in T,in V>{
 
     companion object {
 
-        fun cast(presenter: Any):ViewHolderPresenter<Any, Any> =
+        fun cast(presenter: Any): ViewHolderPresenter<Any, Any> =
                 presenter as ViewHolderPresenter<Any, Any>
 
     }

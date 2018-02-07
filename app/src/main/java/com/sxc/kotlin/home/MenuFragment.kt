@@ -32,7 +32,7 @@ class MenuFragment : BaseFragment(), MenuAdapter.OnRecyclerViewItemClickListener
             it?.let {
                 mLayoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
                 recycleView.layoutManager = mLayoutManager
-                mMenuAdapter = MenuAdapter(context, it.asList())
+                mMenuAdapter = MenuAdapter(context!!, it.asList())
                 recycleView.adapter = mMenuAdapter
                 mMenuAdapter?.setOnRecyclerViewItemClickListener(this@MenuFragment)
             }

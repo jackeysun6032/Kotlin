@@ -4,6 +4,7 @@ import android.content.Context
 import android.support.v7.widget.AppCompatImageView
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.sxc.kotlin.R
@@ -22,20 +23,21 @@ class CategoryAdapter(context: Context) : BaseRecyclerViewAdapter<VideoBean, Cat
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         super.onBindViewHolder(holder, position)
         if (holder is ViewHolder) {
-            val date=datas[position].duration
+            val date = datas[position].duration
             holder.date?.text = date
-            Glide.with(context).load(datas[position].img).into(holder.imageView)
+            Glide.with(context!!).load(datas[position].img).into(holder.imageView as ImageView)
         }
     }
 
     override fun getItemCount(): Int = datas.size
 
-    class ViewHolder: RecyclerView.ViewHolder {
+    class ViewHolder : RecyclerView.ViewHolder {
 
-        constructor(itemView: View):super(itemView)
+        constructor(itemView: View) : super(itemView)
+
         var date: TextView? = null
 
-        var imageView: AppCompatImageView?=null
+        var imageView: AppCompatImageView? = null
 
         init {
             date = itemView.findViewById(R.id.date)

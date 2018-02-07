@@ -8,28 +8,30 @@ import android.view.ViewGroup
 /**
  * Created by sunxunchao on 2017/8/23.
  */
-class SplashAdapter(context: Context, views: ArrayList<View>): PagerAdapter() {
+class SplashAdapter(context: Context, views: ArrayList<View>) : PagerAdapter() {
+
+    override fun isViewFromObject(view: View, `object`: Any): Boolean {
+        return view == `object`
+    }
 
     var views = arrayListOf<View>()
+
     init {
         this.views = views
     }
 
-    override fun isViewFromObject(view: View?, `object`: Any?): Boolean {
-        return view == `object`
-    }
 
     override fun getCount(): Int {
-       return views.size
+        return views.size
     }
 
-    override fun instantiateItem(container: ViewGroup?, position: Int): Any {
-        container?.addView(views[position])
+    override fun instantiateItem(container: ViewGroup, position: Int): Any {
+        container.addView(views[position])
         return views[position]
     }
 
-    override fun destroyItem(container: ViewGroup?, position: Int, `object`: Any?) {
+    override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
 //        super.destroyItem(container, position, `object`)
-        container?.removeView(views[position])
+        container.removeView(views[position])
     }
 }

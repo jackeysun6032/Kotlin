@@ -29,7 +29,7 @@ class MineFragment : BaseFragment() {
 
         myDesc.setOnClickListener {
 
-            ToastUtil.show(context,"我的资料")
+            ToastUtil.show(context!!,"我的资料")
         }
     }
 
